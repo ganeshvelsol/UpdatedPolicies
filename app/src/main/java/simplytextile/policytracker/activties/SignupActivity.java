@@ -388,7 +388,7 @@ public class SignupActivity extends AppCompatActivity
         try
         {
             jsonObjectSub.put("id",0);
-            jsonObjectSub.put("type_id",6500);
+            jsonObjectSub.put("type_id",6501);
             jsonObjectSub.put("business_name","");
             jsonObjectSub.put("first_name",FirstName);
             jsonObjectSub.put("last_name",LastName);
