@@ -93,30 +93,7 @@ public class CustomerActivity extends AppCompatActivity
 
 
 
-
-//        searchView=(SearchView) findViewById(R.id.searchView);
-//        searchView.setQueryHint("Search View");
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-//        {
-//
-//            @Override
-//            public boolean onQueryTextSubmit(String client)
-//            {
-//                Toast.makeText(getBaseContext(), client, Toast.LENGTH_LONG).show();
-//
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText)
-//            {
-//              //  Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
-//                return false;
-//            }
-//
-//
-//
-//        });
+             
 
 
 
