@@ -235,8 +235,10 @@ public class CustomerActivity extends AppCompatActivity
         }
     }
     @Override
-    public void onBackPressed() {
-        if (!searchView.isIconified()) {
+    public void onBackPressed()
+    {
+        if (!searchView.isIconified())
+        {
             searchView.setIconified(true);
             return;
         }
