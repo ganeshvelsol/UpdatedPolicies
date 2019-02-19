@@ -3,10 +3,13 @@ package simplytextile.policytracker.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import com.android.volley.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import simplytextile.policytracker.R;
@@ -29,22 +33,66 @@ import simplytextile.policytracker.models.CustomerList;
  * Created by shmahe on 21-09-2018.
  */
 
-public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss>
+public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss> implements Filterable
 {
     List<CustomerList> customer_list;
+     List<CustomerList> customer_listFiltered;
     Context context;
     public  static  String delid;
 
 
-    public CustomerListAdapter(List<CustomerList> customer_list, Context context)
+    public CustomerListAdapter(final List<CustomerList> customer_list, Context context)
     {
-        this.customer_list = customer_list;
+
         this.context = context;
+        if(this.customer_list ==null)
+        {
+            this.customer_list = customer_list;
+            this.customer_listFiltered = customer_list;
+            notifyItemChanged(0, customer_listFiltered.size());
+        }
+        else
+        {
+            final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback()
+            {
+                @Override
+                public int getOldListSize()
+                {
+                    return CustomerListAdapter.this.customer_list.size();
+                }
+
+                @Override
+                public int getNewListSize()
+                {
+                    return customer_list.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
+                {
+                    return CustomerListAdapter.this.customer_list.get(oldItemPosition).getLast_name() == customer_list.get(newItemPosition).getLast_name();
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+
+                    CustomerList newMovie = CustomerListAdapter.this.customer_list.get(oldItemPosition);
+
+                    CustomerList oldMovie = customer_list.get(newItemPosition);
+
+                    return newMovie.getLast_name() == oldMovie.getLast_name();
+                }
+            });
+            this.customer_list = customer_list;
+            this.customer_listFiltered = customer_list;
+            result.dispatchUpdatesTo(this);
+        }
     }
 
     @NonNull
     @Override
-    public CustomerListAdapter.ViewHolderss onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public CustomerListAdapter.ViewHolderss onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+    {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bill_details_admin, viewGroup, false);
         return new ViewHolderss(view);
     }
@@ -55,7 +103,6 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
         //viewHolderss.mtext.setText(""+customer_list.get(i).getId());
         viewHolderss.lastname_customer.setText(""+customer_list.get(i).getLast_name());
-
         viewHolderss.mobile.setText(""+customer_list.get(i).getAddress().getPhone1());
         viewHolderss.customer_email.setText(""+customer_list.get(i).getAddress().getEmail1());
      //   viewHolderss.customer_dob.setText(""+customer_list.get(i).getDate_of_birth());
@@ -198,6 +245,37 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     public int getItemCount()
     {
         return customer_list.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    customer_listFiltered = customer_list;
+                } else {
+                    List<CustomerList> filteredList = new ArrayList<>();
+                    for (CustomerList movie : customer_list) {
+                        if (movie.getLast_name().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(movie);
+                        }
+                    }
+                    customer_listFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = customer_listFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                customer_listFiltered = (ArrayList<CustomerList>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class ViewHolderss extends RecyclerView.ViewHolder

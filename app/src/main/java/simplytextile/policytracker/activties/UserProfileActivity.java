@@ -13,7 +13,8 @@ import org.w3c.dom.Text;
 
 import simplytextile.policytracker.R;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity
+{
 
 ImageView updateprofile;
 TextView FirstName,ULastName,UEmail,UPhonenumber,UAadahaarNumber,UAddress,UCity,UPostalCode;

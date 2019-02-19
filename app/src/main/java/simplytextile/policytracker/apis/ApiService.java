@@ -1,5 +1,6 @@
 package simplytextile.policytracker.apis;
 
+import java.util.ArrayList;
 import java.util.List;
 
         import retrofit2.Call;
@@ -11,6 +12,7 @@ import java.util.List;
         import retrofit2.http.Header;
         import retrofit2.http.Headers;
         import retrofit2.http.POST;
+import retrofit2.http.Query;
 import simplytextile.policytracker.NotificationResponse.Notresponse;
 import simplytextile.policytracker.companyresponse.AddCmpResponse;
 import simplytextile.policytracker.companyresponse.CompanyList;
@@ -41,10 +43,17 @@ public interface ApiService
     Call<List<CompanyList>> getCompaniesList();
 
 
-
     @Headers("Content-Type:application/json")
     @GET("api/customers")
     Call<CustomerResponse> getCustomers(@Header("app_sid") String S_id);
+
+
+
+//
+    @Headers("Content-Type:application/json")
+    @GET("api/customers")
+    Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,
+                                        @Query("search_text") String signature);
 
 
     @Headers("Content-Type:application/json")
