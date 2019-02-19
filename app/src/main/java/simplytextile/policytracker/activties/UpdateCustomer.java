@@ -29,7 +29,7 @@ EditText UpdatFirstname,UpdateLastanme,UpdateEmailAdress,UpdateAdharNumber,UPdat
             ,phone2_userprofile_input,phone_userprofile_input,pan_userprofile_input,dob_add_customer,address_userprofile_input;
 String  cid,City,bname,fname,lname,dob,email,p1,p2,aadar,pan,add1,citys,state,pin;
 Bundle b;
-int year,mon,day;
+int year,mon,day,statusid;
 
 
 
@@ -40,6 +40,7 @@ int year,mon,day;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_customer);
         b=getIntent().getExtras();
+        cid=b.getString("ids");
         bname=b.getString("bname");
         fname=b.getString("fname");
         lname=b.getString("lname");
@@ -53,6 +54,7 @@ int year,mon,day;
         citys=b.getString("city");
         state=b.getString("state");
         pin=b.getString("pin");
+        statusid=b.getInt("statusid");
         Calendar cal=Calendar.getInstance();
         year=cal.get(Calendar.YEAR);
         mon=cal.get(Calendar.MONTH);
@@ -80,6 +82,7 @@ int year,mon,day;
             @Override
             public void onClick(View v)
             {
+
                 updateCustomer();
 
             }
@@ -156,22 +159,16 @@ int year,mon,day;
 
             try
             {
-
                 JSONObject jmain = new JSONObject();
                 JSONObject jsub1 = new JSONObject();
-                JSONObject jmore1 = new JSONObject();
-                JSONObject jmore2 = new JSONObject();
-                jsub1.put("id", updateid);
+                jsub1.put("id", cid);
                 jsub1.put("business_name", "");
                 jsub1.put("first_name", fname);
                 jsub1.put("last_name", lname);
                 jsub1.put("aadhar_number", aadar);
                 jsub1.put("govt_id_number", pan);
                 jsub1.put("date_of_birth", bob);
-                jsub1.put("status_id", bob);
-                jsub1.put("created","");
-                jsub1.put("last_updated","");
-                jsub1.put("update_counter","");
+                jsub1.put("status_id", statusid);
 
                 JSONObject jsub2 = new JSONObject();
                 jsub2.put("address1", add1);
@@ -184,27 +181,25 @@ int year,mon,day;
                 jsub2.put("phone1", phone1);
                 jsub2.put("email2", "");
                 jsub2.put("phone2", phone2);
-                jsub2.put("created","");
-                jsub2.put("last_updated","");
-                jsub2.put("update_counter","");
                 jsub1.put("address", jsub2);
 
                 JSONObject jsubAgent = new JSONObject();
-                jsubAgent.put("id", updateid);
+                jsubAgent.put("id", 0);
+                jsubAgent.put("business_name", "bname");
                 jsubAgent.put("business_name", "");
                 jsubAgent.put("first_name", "");
                 jsubAgent.put("last_name", "");
                 jsubAgent.put("aadhar_number", "");
                 jsubAgent.put("govt_id_number", "");
-                jsubAgent.put("created","");
-                jsubAgent.put("last_updated","");
-                jsubAgent.put("notes","");
+
+                JSONObject not = new JSONObject();
+                not.put("email_flag", 1);
+                not.put("emails", "bname");
+                not.put("phone", "");
+                not.put("phone_flag", "");
 
 
                 JSONObject jsub3 = new JSONObject();
-                jsub3.put("id", 0);
-                jsub3.put("first_name", fname);
-                jsub3.put("last_name", lname);
                 jsub3.put("address1", "");
                 jsub3.put("address2", "");
                 jsub3.put("address3", "");
@@ -215,13 +210,9 @@ int year,mon,day;
                 jsub3.put("phone1", "");
                 jsub3.put("email2", "");
                 jsub3.put("phone2", "");
-                jsub3.put("created","");
-                jsub3.put("last_updated","");
-                jsub3.put("update_counter","");
-                jsubAgent.put("more", jmore1);
                 jsubAgent.put("address", jsub3);
                 jsub1.put("agent", jsubAgent);
-                jsub1.put("more", jmore2);
+                jsub1.put("notification_info",not);
                 jmain.put("customer", jsub1);
 
                 Utills.getVolleyResponseJson(UpdateCustomer.this, Request.Method.PUT, "http://dev.simplytextile.com:9081/api/customers/"+updateid, jmain, new VolleyCallback() {
@@ -233,7 +224,7 @@ int year,mon,day;
                         {
                             jb = new JSONObject(result);
                             String msg = jb.getString("message");
-                            Toast.makeText(UpdateCustomer.this, "" + msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateCustomer.this, "" + msg, Toast.LENGTH_LONG).show();
                         }
                         catch (JSONException e)
                         {

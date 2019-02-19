@@ -81,18 +81,15 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
                 Intent ss=new Intent(context, UpdateCustomer.class);
 
                  delid= String.valueOf(customer_list.get(i).getId());
-                Toast.makeText(context,""+delid , Toast.LENGTH_SHORT).show();
-
+                ss.putExtra("ids",""+customer_list.get(i).getId());
                 ss.putExtra("bname",""+customer_list.get(i).getBusiness_name());
                 ss.putExtra("fname",""+customer_list.get(i).getFirst_name());
                 ss.putExtra("lname",""+customer_list.get(i).getLast_name());
                 ss.putExtra("dob",""+customer_list.get(i).getDate_of_birth());
-                Toast.makeText(context,""+customer_list.get(i).getDate_of_birth() , Toast.LENGTH_SHORT).show();
 
                 ss.putExtra("email",""+customer_list.get(i).getAddress().getEmail1());
                 ss.putExtra("p1",""+customer_list.get(i).getAddress().getPhone1());
                 ss.putExtra("p2",""+customer_list.get(i).getAddress().getPhone2());
-                Toast.makeText(context,""+customer_list.get(i).getAddress().getPhone2() , Toast.LENGTH_SHORT).show();
 
                 ss.putExtra("aadar",""+customer_list.get(i).getAadhar_number());
                 ss.putExtra("pan",""+customer_list.get(i).getGovt_id_number());
@@ -100,6 +97,8 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
                 ss.putExtra("city",""+customer_list.get(i).getAddress().getCity());
                 ss.putExtra("state",""+customer_list.get(i).getAddress().getState());
                 ss.putExtra("pin",""+customer_list.get(i).getAddress().getZip());
+
+                ss.putExtra("statusid",customer_list.get(i).getStatus_id());
                 context.startActivity(ss);
             }
         });
