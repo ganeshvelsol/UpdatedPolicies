@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity
                       FirstName =response.body().getData().getSession().getSubscriber().getFirst_name();
                      Address= response.body().getData().getSession().getSubscriber().getAddress().getState();
                        typeid= String.valueOf(response.body().getData().getSession().getSubscriber().getType_id());
+                      Toast.makeText(LoginActivity.this, "" + typeid, Toast.LENGTH_LONG).show();
 
                       pDialog.dismiss();
 //                      Bundle userprofile= new Bundle();

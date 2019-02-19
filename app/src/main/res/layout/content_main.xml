@@ -46,7 +46,7 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/count_customer"
+                        android:id="@+id/cardview_image1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -56,7 +56,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/desc_customer"
+                        android:id="@+id/cardview_list_title12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -128,7 +128,7 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/count_lappolicy"
+                        android:id="@+id/cardview_image14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -139,7 +139,7 @@
 
 
                     <TextView
-                        android:id="@+id/desc_lappolicy"
+                        android:id="@+id/cardview_list_title127"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"
@@ -201,27 +201,11 @@
     </HorizontalScrollView>
 
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barchart_policycountbytype"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
-
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_margin="10dp"
-            android:id="@+id/piechart"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+    <!--<com.github.mikephil.charting.charts.BarChart-->
+        <!--android:id="@+id/chart"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:layout_marginTop="30dp"/>-->
 
         <TextView
             android:id="@+id/username"
