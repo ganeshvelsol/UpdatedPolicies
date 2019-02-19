@@ -15,9 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

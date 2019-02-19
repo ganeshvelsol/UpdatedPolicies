@@ -1,25 +1,26 @@
 package simplytextile.policytracker.apis;
 
+import java.util.ArrayList;
 import java.util.List;
 
         import retrofit2.Call;
-import retrofit2.http.DELETE;
-import retrofit2.http.Field;
+        import retrofit2.Callback;
+        import retrofit2.http.Body;
+        import retrofit2.http.Field;
         import retrofit2.http.FormUrlEncoded;
         import retrofit2.http.GET;
         import retrofit2.http.Header;
         import retrofit2.http.Headers;
         import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 import simplytextile.policytracker.NotificationResponse.Notresponse;
 import simplytextile.policytracker.companyresponse.AddCmpResponse;
 import simplytextile.policytracker.companyresponse.CompanyList;
         import simplytextile.policytracker.companyresponse.Compres;
-import simplytextile.policytracker.dashboardresponse.Dashboard;
-import simplytextile.policytracker.response.AgentsResponse;
+        import simplytextile.policytracker.companyresponse.Data;
+        import simplytextile.policytracker.response.AgentsResponse;
         import simplytextile.policytracker.response.CustomerResponse;
-import simplytextile.policytracker.dashboardresponse.DashBoardResposne;
-import simplytextile.policytracker.response.PoliciesResponse;
+        import simplytextile.policytracker.response.PoliciesResponse;
         import simplytextile.policytracker.responses.loginresponses.LoginResponse;
 
 public interface ApiService
@@ -42,10 +43,17 @@ public interface ApiService
     Call<List<CompanyList>> getCompaniesList();
 
 
-
     @Headers("Content-Type:application/json")
     @GET("api/customers")
     Call<CustomerResponse> getCustomers(@Header("app_sid") String S_id);
+
+
+
+//
+    @Headers("Content-Type:application/json")
+    @GET("api/customers")
+    Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,
+                                        @Query("search_text") String signature);
 
 
     @Headers("Content-Type:application/json")
@@ -67,17 +75,6 @@ public interface ApiService
     @Headers("Content-Type:application/json")
     @GET("/api/subscribers/id/companies")
     Call<AddCmpResponse> addCompany(@Header("app_sid") String S_id);
-
-
-    @Headers("Content-Type:application/json")
-    @GET("/api/dashboard")
-    Call<DashBoardResposne> dashBoard(@Header("app_sid") String S_id);
-
-
-
-    @Headers("Content-Type:application/json")
-    @DELETE("/api/customer")
-    Call<Notresponse> getDelete(@Header("app_sid") String app_sid,@Path("id") String id);
 
 
 

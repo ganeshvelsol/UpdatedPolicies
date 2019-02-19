@@ -9,6 +9,13 @@
         android:title="dowload"
         android:visible="true"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_launcher_background"
+        android:orderInCategory="100"
+        android:title="action_search"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
     <!--<item-->
         <!--android:id="@+id/action_settings"-->
         <!--android:orderInCategory="100"-->

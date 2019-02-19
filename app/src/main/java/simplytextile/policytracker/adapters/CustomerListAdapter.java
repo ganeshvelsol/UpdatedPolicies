@@ -3,15 +3,16 @@ package simplytextile.policytracker.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import com.android.volley.Request;
 
@@ -21,44 +22,77 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import simplytextile.policytracker.NotificationResponse.Notresponse;
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
-import simplytextile.policytracker.activties.LoginActivity;
 import simplytextile.policytracker.activties.UpdateCustomer;
 import simplytextile.policytracker.activties.UpdateUserProfileActivity;
-import simplytextile.policytracker.apis.ApiClient;
-import simplytextile.policytracker.apis.ApiService;
-import simplytextile.policytracker.companyresponse.AddCmpResponse;
 import simplytextile.policytracker.models.CustomerList;
 
 /**
  * Created by shmahe on 21-09-2018.
  */
 
-public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss> implements  Filterable
+public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss> implements Filterable
 {
-    public static List<CustomerList> customer_list;
-    List<CustomerList> mArrayList;
+    List<CustomerList> customer_list;
+     List<CustomerList> customer_listFiltered;
     Context context;
-    public static String Custname;
-
     public  static  String delid;
 
 
-    public CustomerListAdapter(List<CustomerList> customer_list, Context context)
+    public CustomerListAdapter(final List<CustomerList> customer_list, Context context)
     {
-        this.customer_list = customer_list;
+
         this.context = context;
+        if(this.customer_list ==null)
+        {
+            this.customer_list = customer_list;
+            this.customer_listFiltered = customer_list;
+            notifyItemChanged(0, customer_listFiltered.size());
+        }
+        else
+        {
+            final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback()
+            {
+                @Override
+                public int getOldListSize()
+                {
+                    return CustomerListAdapter.this.customer_list.size();
+                }
+
+                @Override
+                public int getNewListSize()
+                {
+                    return customer_list.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
+                {
+                    return CustomerListAdapter.this.customer_list.get(oldItemPosition).getLast_name() == customer_list.get(newItemPosition).getLast_name();
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+
+                    CustomerList newMovie = CustomerListAdapter.this.customer_list.get(oldItemPosition);
+
+                    CustomerList oldMovie = customer_list.get(newItemPosition);
+
+                    return newMovie.getLast_name() == oldMovie.getLast_name();
+                }
+            });
+            this.customer_list = customer_list;
+            this.customer_listFiltered = customer_list;
+            result.dispatchUpdatesTo(this);
+        }
     }
 
     @NonNull
     @Override
-    public CustomerListAdapter.ViewHolderss onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public CustomerListAdapter.ViewHolderss onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+    {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bill_details_admin, viewGroup, false);
         return new ViewHolderss(view);
     }
@@ -68,7 +102,6 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
     {
 
         //viewHolderss.mtext.setText(""+customer_list.get(i).getId());
-        Custname=customer_list.get(i).getFirst_name();
         viewHolderss.lastname_customer.setText(""+customer_list.get(i).getLast_name());
         viewHolderss.mobile.setText(""+customer_list.get(i).getAddress().getPhone1());
         viewHolderss.customer_email.setText(""+customer_list.get(i).getAddress().getEmail1());
@@ -109,14 +142,12 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(context, ""+customer_list.get(i).getId(), Toast.LENGTH_SHORT).show();
-
                 try
                 {
                     delid= String.valueOf(customer_list.get(i).getId());
-                    //Toast.makeText(context,""+delid , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,""+delid , Toast.LENGTH_SHORT).show();
                     JSONObject jmain = new JSONObject();
-                    /*JSONObject jsub1 = new JSONObject();
+                    JSONObject jsub1 = new JSONObject();
                     JSONObject jmore1 = new JSONObject();
                     JSONObject jmore2 = new JSONObject();
                     jsub1.put("id", 0);
@@ -182,24 +213,23 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
                     jsubAgent.put("address", jsub3);
                     jsub1.put("agent", jsubAgent);
                     jsub1.put("more", jmore2);
-                    jmain.put("customer", jsub1);*/
-                    jmain.put("id",""+customer_list.get(i).getId());
+                    jmain.put("customer", jsub1);
 
-                    Utills.getVolleyResponseJson(context, Request.Method.DELETE, "http://dev.simplytextile.com:9081/api/customers/"+customer_list.get(i).getId(), jmain, new VolleyCallback()
-                    {
+                    Utills.getVolleyResponseJson(context, Request.Method.DELETE, "http://dev.simplytextile.com:9081/api/customers/"+customer_list.get(i).getId(), jmain, new VolleyCallback() {
                         @Override
-                        public void onSuccessResponse(String result)
-                        {
+                        public void onSuccessResponse(String result) {
                             JSONObject jb = null;
-                            try
-                            {
+                            try {
                                 jb = new JSONObject(result);
                                 String msg = jb.getString("message");
+
+
                                 Toast.makeText(context, "" + msg, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e)
                             {
                                 e.printStackTrace();
                             }
+
                         }
                     });
                 } catch (Exception e)
@@ -208,7 +238,6 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
                 }
             }
         });
-
     }
 
     @Override
@@ -218,40 +247,31 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
     }
 
     @Override
-    public Filter getFilter()
-    {
+    public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-
                 String charString = charSequence.toString();
-
                 if (charString.isEmpty()) {
-
-                    customer_list = mArrayList;
+                    customer_listFiltered = customer_list;
                 } else {
-
-                    ArrayList<CustomerList> filteredList = new ArrayList<>();
-
-                    for (CustomerList androidVersion : mArrayList) {
-
-                        if (androidVersion.getBusiness_name().toLowerCase().contains(charString) || androidVersion.getFirst_name().toLowerCase().contains(charString) || androidVersion.getLast_name().toLowerCase().contains(charString)) {
-
-                            filteredList.add(androidVersion);
+                    List<CustomerList> filteredList = new ArrayList<>();
+                    for (CustomerList movie : customer_list) {
+                        if (movie.getLast_name().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(movie);
                         }
                     }
-
-                    customer_list = filteredList;
+                    customer_listFiltered = filteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = customer_list;
+                filterResults.values = customer_listFiltered;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                customer_list = (ArrayList<CustomerList>) filterResults.values;
+                customer_listFiltered = (ArrayList<CustomerList>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -261,7 +281,6 @@ public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapt
     {
         TextView mtext,lastname_customer,mobile,customer_id_proof_proof,customer_address,customer_email,customer_dob;
         ImageView edit_bill_details,delete_bill_details;
-
 
         public ViewHolderss(@NonNull View itemView)
         {

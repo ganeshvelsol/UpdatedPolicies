@@ -1,5 +1,7 @@
 package simplytextile.policytracker.activties;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -7,13 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
+
+import java.io.FileReader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,16 +36,91 @@ public class CustomerActivity extends AppCompatActivity
     public static final String ss="name";
     RecyclerView customer_recycler;
     ImageView imageView;
-    CustomerListAdapter adapter;
     LinearLayoutManager llm;
-    String Custname;
+    CustomerListAdapter adapter;
+    Button Go;
+    EditText Querystring;
+    String signature;
+    String Filter;
+    android.support.v7.widget.SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_activity);
-        customer_recycler=(RecyclerView)findViewById(R.id.customer_recycler);
+        setContentView(R.layout.customer_activity);Querystring=(EditText)findViewById(R.id.querystring);
+        Go=(Button)findViewById(R.id.go);
+
+
+
+
+
+
+
+             llm=new LinearLayoutManager(this);
+             SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
+             String S_id = mPrefs.getString("key", "");
+             ApiService planView = ApiClient.getClient().create(ApiService.class);
+             Call<CustomerResponse> customers=planView.getCustomers(S_id);
+             customers.enqueue(new Callback<CustomerResponse>()
+             {
+                 @Override
+                 public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response)
+                 {
+                     if (response.body().getStatuscode()==0)
+                     {
+
+                         adapter=new CustomerListAdapter(response.body().getData().getCustomer_list(),CustomerActivity.this);;
+                         customer_recycler.setAdapter(adapter);
+                         customer_recycler.setLayoutManager(llm);
+                     }
+                     else
+                     {
+                         Toast.makeText(CustomerActivity.this, "from else"+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                     }
+                 }
+
+                 @Override
+                 public void onFailure(Call<CustomerResponse> call, Throwable t)
+                 {
+                     Toast.makeText(CustomerActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                 }
+             });
+
+
+
+
+
+
+
+
+//        searchView=(SearchView) findViewById(R.id.searchView);
+//        searchView.setQueryHint("Search View");
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+//        {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String client)
+//            {
+//                Toast.makeText(getBaseContext(), client, Toast.LENGTH_LONG).show();
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText)
+//            {
+//              //  Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//
+//
+//
+//        });
+
+
+
+    customer_recycler=(RecyclerView)findViewById(R.id.customer_recycler);
         imageView=(ImageView)findViewById(R.id.image_addbutton);
         imageView.setOnClickListener(new View.OnClickListener()
         {
@@ -50,74 +131,78 @@ public class CustomerActivity extends AppCompatActivity
                 startActivity(addcustomer);
             }
         });
-        llm=new LinearLayoutManager(this);
-        SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
-        String S_id = mPrefs.getString("key", "");
-        ApiService planView = ApiClient.getClient().create(ApiService.class);
-        Call<CustomerResponse> customers=planView.getCustomers(S_id);
-        customers.enqueue(new Callback<CustomerResponse>()
+
+
+
+        Go.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response)
+            public void onClick(View v)
             {
-                if (response.body().getStatuscode()==0)
+                Filter=Querystring.getText().toString().trim();
+//                llm=new LinearLayoutManager(this);
+                SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
+                String S_id = mPrefs.getString("key", "");
+                ApiService planView = ApiClient.getClient().create(ApiService.class);
+                Call<CustomerResponse> customers=planView.getCustomerfilter(S_id,"",Filter);
+                customers.enqueue(new Callback<CustomerResponse>()
                 {
+                    @Override
+                    public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response)
+                    {
+                        if (response.body().getStatuscode()==0)
+                        {
 
-                    adapter=new CustomerListAdapter(response.body().getData().getCustomer_list(),CustomerActivity.this);
-                    customer_recycler.setAdapter(adapter);
-                    customer_recycler.setLayoutManager(llm);
-                }
-                else
-                {
-                    Toast.makeText(CustomerActivity.this, "from else"+response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
+                            adapter=new CustomerListAdapter(response.body().getData().getCustomer_list(),CustomerActivity.this);;
+                            customer_recycler.setAdapter(adapter);
+                            customer_recycler.setLayoutManager(llm);
+                        }
+                        else
+                        {
+                            Toast.makeText(CustomerActivity.this, "from else"+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable t)
-            {
-                Toast.makeText(CustomerActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call<CustomerResponse> call, Throwable t)
+                    {
+                        Toast.makeText(CustomerActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
-
 
     }
 
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
-    private void search(SearchView searchView)
-    {
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-        {
-            @Override
-            public boolean onQueryTextSubmit(String query)
-            {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText)
-            {
-
-                adapter.getFilter().filter(newText);
-                return true;
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
         return true;
     }
     @Override
@@ -136,12 +221,27 @@ public class CustomerActivity extends AppCompatActivity
 
             case R.id.action_favorite:
             {
+
                 startActivity(new Intent(this,PdfActivty.class));
                 finish();
 
             }
+            case   R.id.action_search:
+            {
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if (!searchView.isIconified())
+        {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }
