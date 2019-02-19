@@ -12,15 +12,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-
 import com.android.volley.Request;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Calendar;
-
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
@@ -192,6 +187,13 @@ public static String S_id;
                 jsubAgent.put("aadhar_number", "");
                 jsubAgent.put("govt_id_number", "");
 
+                JSONObject not = new JSONObject();
+                not.put("email_flag", 1);
+                not.put("emails", "bname");
+                not.put("phone", "");
+                not.put("phone_flag", "");
+
+
                 JSONObject jsub3 = new JSONObject();
                 jsub3.put("address1", "");
                 jsub3.put("address2", "");
@@ -205,6 +207,7 @@ public static String S_id;
                 jsub3.put("phone2", "");
                 jsubAgent.put("address", jsub3);
                 jsub1.put("agent", jsubAgent);
+                jsub1.put("notification_info",not);
                 jmain.put("customer", jsub1);
 
                 Utills.getVolleyResponseJson(AddCustomerActivity.this, Request.Method.POST, "http://dev.simplytextile.com:9081/api/customers", jmain, new VolleyCallback()
