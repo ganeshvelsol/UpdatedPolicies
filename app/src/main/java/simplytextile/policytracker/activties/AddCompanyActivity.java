@@ -76,11 +76,7 @@ public class AddCompanyActivity extends AppCompatActivity
 
                     a1[i]=response.body().getData().getCompany_list().get(i).getPolicy_type().getName();
 
-//                    if (response.body().getData().getCompany_list().get(i).getPolicy_type().getName().toString().equals("Health"))
-//                    {
-//                        ll.add(company_list.get(i).getBusiness_name());
-//
-//                    }
+
 
                 }
                 ArrayAdapter aa=new ArrayAdapter(AddCompanyActivity.this,android.R.layout.simple_spinner_dropdown_item,a1);

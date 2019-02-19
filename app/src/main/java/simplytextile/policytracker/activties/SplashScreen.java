@@ -8,7 +8,8 @@ import android.os.Bundle;
 
 import simplytextile.policytracker.R;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity
+{
     private static int SPLASH_TIME_OUT = 4000;
     @Override
     protected void onCreate(Bundle savedInstanceState)

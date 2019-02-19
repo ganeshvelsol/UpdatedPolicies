@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,14 +30,15 @@ public class CustomerActivity extends AppCompatActivity
     public static final String ss="name";
     RecyclerView customer_recycler;
     ImageView imageView;
+    CustomerListAdapter adapter;
     LinearLayoutManager llm;
+    String Custname;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_activity);
-
         customer_recycler=(RecyclerView)findViewById(R.id.customer_recycler);
         imageView=(ImageView)findViewById(R.id.image_addbutton);
         imageView.setOnClickListener(new View.OnClickListener()
@@ -48,7 +50,6 @@ public class CustomerActivity extends AppCompatActivity
                 startActivity(addcustomer);
             }
         });
-
         llm=new LinearLayoutManager(this);
         SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
         String S_id = mPrefs.getString("key", "");
@@ -62,7 +63,7 @@ public class CustomerActivity extends AppCompatActivity
                 if (response.body().getStatuscode()==0)
                 {
 
-                    CustomerListAdapter adapter=new CustomerListAdapter(response.body().getData().getCustomer_list(),CustomerActivity.this);;
+                    adapter=new CustomerListAdapter(response.body().getData().getCustomer_list(),CustomerActivity.this);
                     customer_recycler.setAdapter(adapter);
                     customer_recycler.setLayoutManager(llm);
                 }
@@ -80,6 +81,36 @@ public class CustomerActivity extends AppCompatActivity
         });
 
 
+    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    private void search(SearchView searchView)
+    {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -105,7 +136,6 @@ public class CustomerActivity extends AppCompatActivity
 
             case R.id.action_favorite:
             {
-
                 startActivity(new Intent(this,PdfActivty.class));
                 finish();
 

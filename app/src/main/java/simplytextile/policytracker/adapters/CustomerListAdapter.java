@@ -10,29 +10,43 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.android.volley.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import simplytextile.policytracker.NotificationResponse.Notresponse;
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
+import simplytextile.policytracker.activties.LoginActivity;
 import simplytextile.policytracker.activties.UpdateCustomer;
 import simplytextile.policytracker.activties.UpdateUserProfileActivity;
+import simplytextile.policytracker.apis.ApiClient;
+import simplytextile.policytracker.apis.ApiService;
+import simplytextile.policytracker.companyresponse.AddCmpResponse;
 import simplytextile.policytracker.models.CustomerList;
 
 /**
  * Created by shmahe on 21-09-2018.
  */
 
-public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss>
+public  class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolderss> implements  Filterable
 {
-    List<CustomerList> customer_list;
+    public static List<CustomerList> customer_list;
+    List<CustomerList> mArrayList;
     Context context;
+    public static String Custname;
+
     public  static  String delid;
 
 
@@ -54,8 +68,8 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
     {
 
         //viewHolderss.mtext.setText(""+customer_list.get(i).getId());
+        Custname=customer_list.get(i).getFirst_name();
         viewHolderss.lastname_customer.setText(""+customer_list.get(i).getLast_name());
-
         viewHolderss.mobile.setText(""+customer_list.get(i).getAddress().getPhone1());
         viewHolderss.customer_email.setText(""+customer_list.get(i).getAddress().getEmail1());
      //   viewHolderss.customer_dob.setText(""+customer_list.get(i).getDate_of_birth());
@@ -96,12 +110,14 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             @Override
             public void onClick(View v)
             {
+                Toast.makeText(context, ""+customer_list.get(i).getId(), Toast.LENGTH_SHORT).show();
+
                 try
                 {
                     delid= String.valueOf(customer_list.get(i).getId());
-                    Toast.makeText(context,""+delid , Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,""+delid , Toast.LENGTH_SHORT).show();
                     JSONObject jmain = new JSONObject();
-                    JSONObject jsub1 = new JSONObject();
+                    /*JSONObject jsub1 = new JSONObject();
                     JSONObject jmore1 = new JSONObject();
                     JSONObject jmore2 = new JSONObject();
                     jsub1.put("id", 0);
@@ -167,23 +183,24 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
                     jsubAgent.put("address", jsub3);
                     jsub1.put("agent", jsubAgent);
                     jsub1.put("more", jmore2);
-                    jmain.put("customer", jsub1);
+                    jmain.put("customer", jsub1);*/
+                    jmain.put("id",""+customer_list.get(i).getId());
 
-                    Utills.getVolleyResponseJson(context, Request.Method.DELETE, "http://dev.simplytextile.com:9081/api/customers/"+customer_list.get(i).getId(), jmain, new VolleyCallback() {
+                    Utills.getVolleyResponseJson(context, Request.Method.DELETE, "http://dev.simplytextile.com:9081/api/customers/"+customer_list.get(i).getId(), jmain, new VolleyCallback()
+                    {
                         @Override
-                        public void onSuccessResponse(String result) {
+                        public void onSuccessResponse(String result)
+                        {
                             JSONObject jb = null;
-                            try {
+                            try
+                            {
                                 jb = new JSONObject(result);
                                 String msg = jb.getString("message");
-
-
                                 Toast.makeText(context, "" + msg, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e)
                             {
                                 e.printStackTrace();
                             }
-
                         }
                     });
                 } catch (Exception e)
@@ -192,6 +209,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
                 }
             }
         });
+
     }
 
     @Override
@@ -200,10 +218,51 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         return customer_list.size();
     }
 
+    @Override
+    public Filter getFilter()
+    {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    customer_list = mArrayList;
+                } else {
+
+                    ArrayList<CustomerList> filteredList = new ArrayList<>();
+
+                    for (CustomerList androidVersion : mArrayList) {
+
+                        if (androidVersion.getBusiness_name().toLowerCase().contains(charString) || androidVersion.getFirst_name().toLowerCase().contains(charString) || androidVersion.getLast_name().toLowerCase().contains(charString)) {
+
+                            filteredList.add(androidVersion);
+                        }
+                    }
+
+                    customer_list = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = customer_list;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                customer_list = (ArrayList<CustomerList>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     class ViewHolderss extends RecyclerView.ViewHolder
     {
         TextView mtext,lastname_customer,mobile,customer_id_proof_proof,customer_address,customer_email,customer_dob;
         ImageView edit_bill_details,delete_bill_details;
+
 
         public ViewHolderss(@NonNull View itemView)
         {

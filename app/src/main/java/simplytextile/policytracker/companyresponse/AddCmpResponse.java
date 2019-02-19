@@ -3,25 +3,21 @@ package simplytextile.policytracker.companyresponse;
 public class AddCmpResponse
 {
 
-    private Integer statuscode;
+    private int statuscode;
 
     private String message;
 
-    //private Data data;
+    private Data data;
 
-    public Integer getStatuscode() {
+    public int getStatuscode() {
         return statuscode;
-    }
-
-    public void setStatuscode(Integer statuscode) {
-        this.statuscode = statuscode;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Data getData() {
+        return data;
     }
 }

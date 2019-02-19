@@ -39,17 +39,23 @@
                 android:layout_margin="5dp"
                 android:hint="Username"/>
 
-            <EditText
-                android:id="@+id/loginactivity_input_password"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="50dp"
-                android:inputType="textPassword"
-                android:layout_margin="5dp"
-                android:paddingLeft="10dp"
-                android:padding="10dp"
-                android:background="@drawable/edittext_shapes"
-                android:hint="Password"/>
+                app:passwordToggleEnabled="true">
+                <EditText
+                    android:id="@+id/loginactivity_input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="50dp"
+                    android:inputType="textPassword"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/edittext_shapes"
+                    android:hint="Password"/>
+
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
 

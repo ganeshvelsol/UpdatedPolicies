@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,5 +27,48 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+    android:id="@+id/admin_adding_entries_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/image"
+    android:layout_marginTop="-40dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    app:menu_openDirection="up"
+    app:menu_showShadow="true"
+    app:menu_labels_textColor="#440000"
+    app:menu_labels_colorNormal="@android:color/holo_red_light"
+    app:menu_labels_colorPressed="@color/colorAccent">
+
+
+    <com.github.clans.fab.FloatingActionButton
+    android:id="@+id/adding_employee_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:fab_label="Employee"
+    app:fab_size="mini"
+    android:src="@drawable/add_employee_fab_icon"/>
+
+    <com.github.clans.fab.FloatingActionButton
+    android:id="@+id/adding_category_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:fab_label="Category"
+    android:src="@drawable/add_categories_fab_icon"
+    app:fab_size="mini"/>
+    <!--<com.github.clans.fab.FloatingActionButton-->
+    <!--android:id="@+id/adding_product_fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:fab_label="Product"-->
+    <!--app:fab_size="mini"-->
+    <!--android:src="@drawable/add_product_fab_icon"/>-->
+    </com.github.clans.fab.FloatingActionMenu>
+</RelativeLayout>
+

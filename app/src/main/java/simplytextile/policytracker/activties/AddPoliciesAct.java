@@ -45,8 +45,6 @@ public class AddPoliciesAct extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_policies);
-
-
         initParams();
 
     }
@@ -91,7 +89,9 @@ public class AddPoliciesAct extends AppCompatActivity
         yr=c.get(Calendar.YEAR);
         mon=c.get(Calendar.MONTH);
         day=c.get(Calendar.DAY_OF_WEEK);
-        add_date_imageview.setOnClickListener(new View.OnClickListener() {
+        add_date_imageview.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v)
             {

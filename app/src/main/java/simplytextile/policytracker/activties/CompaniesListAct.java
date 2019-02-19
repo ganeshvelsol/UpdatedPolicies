@@ -67,7 +67,7 @@ public class CompaniesListAct extends AppCompatActivity
             public void onResponse(Call<Compres> call, Response<Compres> response)
             {
                 data_loading_screen_layout.setVisibility(View.GONE);
-                if (response.body().getStatuscode()==0)
+                if (response.body().getStatuscode().equals(0))
                 {
                     CompaniesListAdapters ada=new CompaniesListAdapters(response.body().getData().getCompany_list(),CompaniesListAct.this);
                     get_companies_recycler.setAdapter(ada);
