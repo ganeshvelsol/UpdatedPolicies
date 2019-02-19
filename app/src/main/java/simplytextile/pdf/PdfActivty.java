@@ -73,7 +73,7 @@ public class PdfActivty extends AppCompatActivity
         llm=new LinearLayoutManager(this);
         customer_recycler=(RecyclerView)findViewById(R.id.customer_recycler);
         mContext = getApplicationContext();
-        text=CustomerListAdapter.Custname;
+      //  text=CustomerListAdapter.Custname;
         //Toast.makeText(PdfActivty.this, "from else"+text, Toast.LENGTH_SHORT).show();
         SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
         String S_id = mPrefs.getString("key", "");
@@ -94,8 +94,8 @@ public class PdfActivty extends AppCompatActivity
                     customer_recycler.setLayoutManager(llm);
                     for(int i= 0;i<adapter.getItemCount();i++)
                    {
-                       nam=CustomerListAdapter.customer_list.get(i).getLast_name();
-                       mobile=CustomerListAdapter.customer_list.get(i).getAddress().getPhone1();
+                    //   nam=CustomerListAdapter.customer_list.get(i).getLast_name();
+                    //   mobile=CustomerListAdapter.customer_list.get(i).getAddress().getPhone1();
                        Toast.makeText(PdfActivty.this, ""+nam, Toast.LENGTH_SHORT).show();
                        Toast.makeText(PdfActivty.this, ""+mobile, Toast.LENGTH_SHORT).show();
                        createPdf(FileUtils.getAppPath(mContext) + "kasim.pdf");
