@@ -98,15 +98,20 @@
         android:paddingTop="20dp"
         android:textColor="@color/colorBlack"
         android:textSize="15dp"
-
-
         android:text="Postal Code *"/>
     <!--<Spinner-->
         <!--android:id="@+id/user_select_city"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_marginTop="15dp"/>-->
-
+    <Button
+        android:id="@+id/user_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="25dp"
+        android:text="Change Password"/>
 
 
 

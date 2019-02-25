@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".AppController"
@@ -21,30 +21,37 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activties.SignupActivity" />
-        <activity android:name=".activties.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="Login">
-        </activity>
+        <activity
+            android:name=".activties.LoginActivity"
+            android:label="Login"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name=".activties.HomeActivity" />
-        <activity android:name=".activties.CustomerActivity"
-            android:label="CustomersList"/>
-        <activity android:name=".activties.AddCustomerActivity"
-            android:label="Adding Customer"/>
+        <activity
+            android:name=".activties.CustomerActivity"
+            android:label="CustomersList" />
+        <activity
+            android:name=".activties.AddCustomerActivity"
+            android:label="Adding Customer" />
         <activity android:name=".activties.CompaniesActivity" />
-        <activity android:name=".activties.PoliciesActivity"
-            android:label="Policies List"/>
+        <activity
+            android:name=".activties.PoliciesActivity"
+            android:label="Policies List" />
         <activity android:name=".activties.NotificationActivity" />
-        <activity android:name=".activties.AddCompanyActivity"
-            android:label="Adding Company "/>
+        <activity
+            android:name=".activties.AddCompanyActivity"
+            android:label="Adding Company " />
         <activity android:name=".activties.UserProfileActivity" />
         <activity android:name=".activties.UpdateUserProfileActivity" />
         <activity android:name=".activties.AgentsListActivity" />
-        <activity android:name=".activties.AddAgentActivity"
-            android:label="Adding Agent"/>
-        <activity android:name=".activties.CompaniesListAct"
-            android:label="Companies List"/>
-        <activity android:name=".activties.AddPoliciesAct"
-            android:label="Adding Policy"/>
+        <activity
+            android:name=".activties.AddAgentActivity"
+            android:label="Adding Agent" />
+        <activity
+            android:name=".activties.CompaniesListAct"
+            android:label="Companies List" />
+        <activity
+            android:name=".activties.AddPoliciesAct"
+            android:label="Adding Policy" />
         <activity android:name=".activties.UpdateCustomer" />
         <activity android:name=".activties.UpdateAgent" />
         <activity android:name="simplytextile.pdf.PermissionActivity" />
@@ -67,8 +74,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".activties.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

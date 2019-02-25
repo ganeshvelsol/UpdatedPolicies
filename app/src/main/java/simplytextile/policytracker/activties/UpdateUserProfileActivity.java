@@ -1,6 +1,7 @@
 package simplytextile.policytracker.activties;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import java.util.Calendar;
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
+import simplytextile.policytracker.models.CustomerList;
 
 public class UpdateUserProfileActivity extends AppCompatActivity
 {
@@ -32,6 +35,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity
     EditText UpdatFirstname,UpdateLastanme,UpdateEmailAdress,UpdateAdharNumber,UPdatecity,UpdatePostal,UpdateState
             ,phone2_userprofile_input,phone_userprofile_input,pan_userprofile_input,dob_add_customer,address_userprofile_input;
     ImageView select_date;
+    Button changeuserpassword;
     Button update_register_signup;
     int year,mon,day;
     Bundle b;
@@ -82,6 +86,13 @@ public class UpdateUserProfileActivity extends AppCompatActivity
         dob_add_customer=(EditText)findViewById(R.id.dob_add_customer);
         address_userprofile_input=(EditText)findViewById(R.id.address_userprofile_input);
         update_register_signup=(Button) findViewById(R.id.update_register_signup);
+        changeuserpassword=(Button)findViewById(R.id.user_change_password);
+
+
+
+
+
+
 
         select_date=(ImageView) findViewById(R.id.select_date);
         select_date.setOnClickListener(new View.OnClickListener()
@@ -99,14 +110,33 @@ public class UpdateUserProfileActivity extends AppCompatActivity
                 dp.show();
             }
         });
+
+
+        changeuserpassword.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
         update_register_signup.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                updateCustomer();
+
+
+                    Intent changepassword = new Intent(UpdateUserProfileActivity.this, ChangePasswordActivity.class);
+                    startActivity(changepassword);
+
             }
         });
+
+
+
+
         UpdatFirstname.setText(""+fname);
         UpdateLastanme.setText(""+lname);
         dob_add_customer.setText(""+dob);
@@ -251,9 +281,11 @@ public class UpdateUserProfileActivity extends AppCompatActivity
 
                 Utills.getVolleyResponseJson(UpdateUserProfileActivity.this, Request.Method.PUT, "http://dev.simplytextile.com:9081/api/customers", jmain, new VolleyCallback() {
                     @Override
-                    public void onSuccessResponse(String result) {
+                    public void onSuccessResponse(String result)
+                    {
                         JSONObject jb = null;
-                        try {
+                        try
+                        {
                             jb = new JSONObject(result);
                             String msg = jb.getString("message");
 

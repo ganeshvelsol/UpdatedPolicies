@@ -15,14 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Calendar;
-
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
@@ -106,7 +102,8 @@ public class AddPoliciesAct extends AppCompatActivity
             }
         });
 
-        add_date_imageview1.setOnClickListener(new View.OnClickListener() {
+        add_date_imageview1.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -121,7 +118,8 @@ public class AddPoliciesAct extends AppCompatActivity
             }
         });
 
-        add_date_imageview2.setOnClickListener(new View.OnClickListener() {
+        add_date_imageview2.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -206,14 +204,14 @@ public class AddPoliciesAct extends AppCompatActivity
         {
             sub_main.put("id", "");
             sub_main.put("description", "");
-            sub_main.put("policy_number", "");
+            sub_main.put("policy_number", 1234);
             sub_main.put("commission_amount", "");
             sub_main.put("beneficiary_information", "");
-            sub_main.put("grace_days", "");
+            sub_main.put("grace_days", 30);
             sub_main.put("parent_id", "");
 
             JSONObject json_customer = new JSONObject();
-            json_customer.put("id", "");
+            json_customer.put("id", 10063);
             json_customer.put("business_name", "");
             json_customer.put("first_name", "");
             json_customer.put("last_name", "");
@@ -232,33 +230,13 @@ public class AddPoliciesAct extends AppCompatActivity
             json_cust_addrs.put("phone1", "");
             json_cust_addrs.put("email2", "");
             json_cust_addrs.put("phone2", "");
-
             json_customer.put("address", json_cust_addrs);
 
-            JSONObject json_cust_agent = new JSONObject();
-            json_cust_agent.put("id", "");
-            json_cust_agent.put("business_name", "");
-            json_cust_agent.put("first_name", "");
-            json_cust_agent.put("last_name", "");
-            json_cust_agent.put("aadhar_number", "");
-            json_cust_agent.put("govt_id_number", "");
-            JSONObject json_cust_addrs1 = new JSONObject();
-            json_cust_addrs1.put("address1", "");
-            json_cust_addrs1.put("address2", "");
-            json_cust_addrs1.put("address3", "");
-            json_cust_addrs1.put("city", "");
-            json_cust_addrs1.put("state", "");
-            json_cust_addrs1.put("zip", "");
-            json_cust_addrs1.put("email1", "");
-            json_cust_addrs1.put("phone1", "");
-            json_cust_addrs1.put("email2", "");
-            json_cust_addrs1.put("phone2", "");
-            json_cust_agent.put("address", json_cust_addrs1);
-            json_customer.put("agent", json_cust_agent);
+
 
 
             JSONObject json_agent = new JSONObject();
-            json_agent.put("id", "");
+            json_agent.put("id", 10059);
             json_agent.put("business_name", "");
             json_agent.put("first_name", "");
             json_agent.put("last_name", "");
@@ -276,22 +254,24 @@ public class AddPoliciesAct extends AppCompatActivity
             json_agent_addres.put("phone1", "");
             json_agent_addres.put("email2", "");
             json_agent_addres.put("phone2", "");
-            json_agent.put("address", json_cust_addrs1);
+            json_agent.put("address", json_agent_addres);
 
 
             JSONObject json_company = new JSONObject();
-            json_company.put("id", "");
+            json_company.put("id", 10038);
             json_company.put("first_name", "");
             json_company.put("last_name", "");
-            json_company.put("business_name", "");
+            json_company.put("business_name", "jbj");
             json_company.put("status_id", "");
             json_company.put("irdai_number", "");
             json_company.put("govt_id_number", "");
             json_company.put("created", "");
             json_company.put("last_updated", "");
-            json_company.put("update_counter", "");
+            json_company.put("update_counter", 0);
 
             JSONObject json_comp_address = new JSONObject();
+
+            json_comp_address.put("id", 10038);
             json_comp_address.put("address1", "");
             json_comp_address.put("address2", "");
             json_comp_address.put("address3", "");
@@ -303,15 +283,16 @@ public class AddPoliciesAct extends AppCompatActivity
             json_comp_address.put("email2", "");
             json_comp_address.put("phone2", "");
             json_comp_address.put("update_counter", "");
-            json_comp_address.put("created", "");
+            json_comp_address.put("created", 344);
             json_comp_address.put("last_updated", "");
             json_company.put("address", json_comp_address);
 
             JSONObject jmmore = new JSONObject();
+            jmmore.put("license_number",3838);
             json_company.put("more", jmmore);
 
             JSONObject json_comp_policytyep = new JSONObject();
-            json_comp_policytyep.put("id", "");
+            json_comp_policytyep.put("id", 5302);
             json_comp_policytyep.put("name", "");
             json_comp_policytyep.put("description", "");
             json_comp_policytyep.put("parent_id", "");
@@ -321,25 +302,25 @@ public class AddPoliciesAct extends AppCompatActivity
             json_company.put("policy_type", json_comp_policytyep);
 
             JSONObject json_insuredInfo = new JSONObject();
-            json_insuredInfo.put("id", "");
-            json_insuredInfo.put("value", "");
+            json_insuredInfo.put("id", 6000);
+            json_insuredInfo.put("value", 20000);
             json_insuredInfo.put("identification", "");
 
             JSONObject json_premium_info = new JSONObject();
-            json_premium_info.put("id", "");
+            json_premium_info.put("id", 5000);
             json_premium_info.put("period_number", "");
-            json_premium_info.put("next_payment_due_date", "");
-            json_premium_info.put("last_payment_date", "");
-            json_premium_info.put("amount", "");
-            json_premium_info.put("end_date", "");
+            json_premium_info.put("next_payment_due_date", 20);
+            json_premium_info.put("last_payment_date", 2017);
+            json_premium_info.put("amount", 500);
+            json_premium_info.put("end_date", 2022);
             json_premium_info.put("renewal_amount", "");
 
             JSONObject json_covergInfo = new JSONObject();
-            json_covergInfo.put("id", "");
-            json_covergInfo.put("period_number", "");
-            json_covergInfo.put("start_date", "");
-            json_covergInfo.put("value", "");
-            json_covergInfo.put("end_date", "");
+            json_covergInfo.put("id", 5001);
+            json_covergInfo.put("period_number", 2);
+            json_covergInfo.put("start_date", 113);
+            json_covergInfo.put("value", 34);
+            json_covergInfo.put("end_date", 2022);
 
             JSONObject json_policyStatus = new JSONObject();
             json_policyStatus.put("id", "");
@@ -348,14 +329,14 @@ public class AddPoliciesAct extends AppCompatActivity
 
 
             JSONObject json_policyTYpe = new JSONObject();
-            json_policyTYpe.put("id", "");
+            json_policyTYpe.put("id", 5302);
             json_policyTYpe.put("name", "");
             json_policyTYpe.put("description", "");
             json_policyTYpe.put("parent_id", "");
             json_policyTYpe.put("is_renewable", "");
 
             JSONObject json_ptype_sub = new JSONObject();
-            json_ptype_sub.put("id", "");
+            json_ptype_sub.put("id", 530205);
             json_ptype_sub.put("name", "");
             json_ptype_sub.put("description", "");
             json_ptype_sub.put("parent_id", "");
@@ -386,9 +367,12 @@ public class AddPoliciesAct extends AppCompatActivity
             sub_main.put("agent", json_agent);
             sub_main.put("customer", json_customer);
             main.put("policy", sub_main);
+            Log.i("", String.valueOf(main));
 
             Utills.getVolleyResponseJson(AddPoliciesAct.this, Request.Method.POST, "http://dev.simplytextile.com:9081/api/policies", main, new VolleyCallback() {
                 @Override
+
+
                 public void onSuccessResponse(String result) {
                     JSONObject jb = null;
                     try {
