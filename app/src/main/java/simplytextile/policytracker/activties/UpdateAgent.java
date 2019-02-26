@@ -163,8 +163,7 @@ public class UpdateAgent extends AppCompatActivity
                 sub2.put("phone2",phone2);
                 sub1.put("address",sub2);
                 jmain.put("agent",sub1);
-
-
+                
                 Utills.getVolleyResponseJson(UpdateAgent.this, Request.Method.PUT, "http://dev.simplytextile.com:9081/api/agents/"+agentId, jmain, new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String result)
