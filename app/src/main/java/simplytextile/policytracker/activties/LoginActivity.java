@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                Intent mainactivity=new Intent(LoginActivity.this, SignupActivity.class);
+                Intent mainactivity=new Intent(LoginActivity.this, ChangePasswordActivity.class);
                 startActivity(mainactivity);
 
             }

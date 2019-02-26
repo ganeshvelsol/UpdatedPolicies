@@ -22,6 +22,7 @@ import simplytextile.policytracker.companyresponse.CompanyList;
         import simplytextile.policytracker.response.CustomerResponse;
         import simplytextile.policytracker.response.PoliciesResponse;
         import simplytextile.policytracker.responses.loginresponses.LoginResponse;
+import simplytextile.policytracker.changepasswordresponse.Changespassword;
 
 public interface ApiService
 {
@@ -34,6 +35,10 @@ public interface ApiService
     @FormUrlEncoded
     @POST("api/users/me/login")
     Call<LoginResponse> Logindetails(@Field("login_name") String login_name, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/api/users/me/changepassword")
+    Call<Changespassword> userchangePassword(@Header("app_sid") String S_id ,@Field("login_name") String login_name, @Field("oldpassword") String oldpassword,@Field("newpassword") String newpassword);
 
 
     @GET("api/companies")
@@ -49,7 +54,7 @@ public interface ApiService
 
 
 
-//
+
     @Headers("Content-Type:application/json")
     @GET("api/customers")
     Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,
