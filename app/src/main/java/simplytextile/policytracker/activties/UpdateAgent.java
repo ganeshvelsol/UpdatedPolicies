@@ -21,7 +21,7 @@ public class UpdateAgent extends AppCompatActivity
 {
 
 
-    String bname,fname,lname,email,ph1,ph2,aadar,pan,add1,city,state,zip;
+    String bname,fname,lname,email,ph1,ph2,aadar,pan,add1,city,state,zip,agentId;
     EditText business_name_update_agents,first_name_update_agents,last_name_update_agents,
     aadhar_number_update_agents,govt_id_number_update_agents,address1_update_agents,city_update_agents,
             state_update_agents,zip_update_agents,email1_update_agents,phone1_update_agents,phone2_update_agents;
@@ -32,6 +32,7 @@ public class UpdateAgent extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_agent_activity);
         Bundle b=getIntent().getExtras();
+        agentId=b.getString("agentId");
         bname=b.getString("bname");
         fname=b.getString("fname");
         lname=b.getString("lname");
@@ -68,6 +69,21 @@ public class UpdateAgent extends AppCompatActivity
                 performUpdations();
             }
         });
+
+        business_name_update_agents.setText(""+bname);
+        first_name_update_agents.setText(""+fname);
+        last_name_update_agents.setText(""+lname);
+        email1_update_agents.setText(""+email);
+        phone1_update_agents.setText(""+ph1);
+        phone2_update_agents.setText(""+ph2);
+        aadhar_number_update_agents.setText(""+aadar);
+        govt_id_number_update_agents.setText(""+pan);
+        address1_update_agents.setText(""+add1);
+        city_update_agents.setText(""+city);
+        state_update_agents.setText(""+state);
+        zip_update_agents.setText(""+zip);
+
+
     }
     public void performUpdations()
     {
@@ -149,7 +165,7 @@ public class UpdateAgent extends AppCompatActivity
                 jmain.put("agent",sub1);
 
 
-                Utills.getVolleyResponseJson(UpdateAgent.this, Request.Method.POST, "http://dev.simplytextile.com:9081/api/agents", jmain, new VolleyCallback() {
+                Utills.getVolleyResponseJson(UpdateAgent.this, Request.Method.PUT, "http://dev.simplytextile.com:9081/api/agents/"+agentId, jmain, new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String result)
                     {
