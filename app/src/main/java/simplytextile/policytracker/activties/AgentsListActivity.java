@@ -33,6 +33,7 @@ public class AgentsListActivity extends AppCompatActivity
     ImageView imageView;
     LinearLayout data_loading_screen_layout;
 
+
     LinearLayoutManager llm;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +58,7 @@ public class AgentsListActivity extends AppCompatActivity
                 startActivity(addagent);
             }
         });
+
         data_loading_screen_layout.setVisibility(View.VISIBLE);
         ApiService ps = ApiClient.getClient().create(ApiService.class);
         Call<AgentsResponse> agents=ps.getAgents(S_id);
