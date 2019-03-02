@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -62,6 +63,7 @@ public class AgentsListAdapter extends RecyclerView.Adapter<AgentsListAdapter.Vi
             public void onClick(View v)
             {
                 Intent ssp=new Intent(context, UpdateAgent.class);
+                ssp.putExtra("agentId",""+agentList.get(i).getId());
                 ssp.putExtra("bname",""+agentList.get(i).getBusiness_name());
                 ssp.putExtra("fname",""+agentList.get(i).getFirst_name());
                 ssp.putExtra("lname",""+agentList.get(i).getLast_name());
