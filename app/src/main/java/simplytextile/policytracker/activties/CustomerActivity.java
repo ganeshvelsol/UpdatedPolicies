@@ -48,7 +48,8 @@ public class CustomerActivity extends AppCompatActivity
     {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_activity);Querystring=(EditText)findViewById(R.id.querystring);
+        setContentView(R.layout.customer_activity);
+        Querystring=(EditText)findViewById(R.id.querystring);
         Go=(Button)findViewById(R.id.go);
 
 

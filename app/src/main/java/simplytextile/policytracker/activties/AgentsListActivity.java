@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import simplytextile.policytracker.R;
 import simplytextile.policytracker.adapters.AgentsListAdapter;
 import simplytextile.policytracker.apis.ApiClient;
 import simplytextile.policytracker.apis.ApiService;
+import simplytextile.policytracker.models.Agent;
 import simplytextile.policytracker.response.AgentsResponse;
 
 
@@ -32,6 +35,10 @@ public class AgentsListActivity extends AppCompatActivity
     RecyclerView agents_list_recycler;
     ImageView imageView;
     LinearLayout data_loading_screen_layout;
+    Button Agentsearch;
+    EditText AgentQuerystring;
+    String AgentidName;
+    String S_id;
 
 
     LinearLayoutManager llm;
@@ -44,9 +51,14 @@ public class AgentsListActivity extends AppCompatActivity
         data_loading_screen_layout=(LinearLayout)findViewById(R.id.data_loading_screen_layout);
 
         SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
-        String S_id = mPrefs.getString("key", "");
+         S_id = mPrefs.getString("key", "");
         agents_list_recycler=(RecyclerView)findViewById(R.id.agents_list_recycler);
         imageView=(ImageView)findViewById(R.id.image_addbutton);
+        Agentsearch=(Button)findViewById(R.id.agent_search_button);
+        AgentQuerystring=(EditText)findViewById(R.id.agent_querystring);
+
+
+
         llm=new LinearLayoutManager(this);
 
         imageView.setOnClickListener(new View.OnClickListener()
@@ -86,7 +98,45 @@ public class AgentsListActivity extends AppCompatActivity
                 Toast.makeText(AgentsListActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+        Agentsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                AgentidName = AgentQuerystring.getText().toString().trim();
+
+                    ApiService ps = ApiClient.getClient().create(ApiService.class);
+                    Call<AgentsResponse> agents = ps.getAgentsfilter(S_id, AgentidName);
+                    agents.enqueue(new Callback<AgentsResponse>() {
+                        @Override
+                        public void onResponse(Call<AgentsResponse> call, Response<AgentsResponse> response)
+                        {
+                            if (response.body().getStatuscode() == 0)
+                            {
+                                AgentsListAdapter adapter = new AgentsListAdapter(response.body().getData().getAgentList(), AgentsListActivity.this);
+                                agents_list_recycler.setAdapter(adapter);
+                                agents_list_recycler.setLayoutManager(llm);
+                            } else {
+                                Toast.makeText(AgentsListActivity.this, "from else" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AgentsResponse> call, Throwable t)
+                        {
+                            Toast.makeText(AgentsListActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+
+        });
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

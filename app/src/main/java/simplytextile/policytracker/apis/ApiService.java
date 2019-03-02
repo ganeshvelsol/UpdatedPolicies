@@ -58,13 +58,22 @@ public interface ApiService
     @Headers("Content-Type:application/json")
     @GET("api/customers")
     Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,
-                                        @Query("search_text") String signature);
+                                        @Query("search_text") String sigatunre);
 
 
     @Headers("Content-Type:application/json")
     @GET("api/agents/")
     Call<AgentsResponse> getAgents(@Header("app_sid") String S_id );
-//@Header("app_sid") String sessionid
+
+
+
+    @Headers("Content-Type:application/json")
+    @GET("api/agents/")
+    Call<AgentsResponse> getAgentsfilter(@Header("app_sid") String S_id, @Query("search_text") String search_text );
+
+
+
+
 
     //api/policies
     @Headers("Content-Type:application/json")
