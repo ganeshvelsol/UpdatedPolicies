@@ -2,6 +2,7 @@ package simplytextile.policytracker.activties;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,23 +19,37 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import simplytextile.policytracker.R;
 import simplytextile.policytracker.Utills;
 import simplytextile.policytracker.VolleyCallback;
+import simplytextile.policytracker.apis.ApiClient;
+import simplytextile.policytracker.apis.ApiService;
+import simplytextile.policytracker.response.AgentsResponse;
+import simplytextile.policytracker.response.CustomerResponse;
 
 public class AddPoliciesAct extends AppCompatActivity
 {
-    Spinner select_customer_spinner,select_company_type_spinner,select_company_spinner,select_policy_type_spinner,add_policy_premium_freq;
+    Spinner select_agent_spinner,select_customer_spinner,select_company_type_spinner,select_company_spinner,select_policy_type_spinner,add_policy_premium_freq;
     ImageView add_date_imageview,add_date_imageview1,add_date_imageview2,add_date_imageview3;
     EditText add_policy_num_number,add_policy_insured_value,add_policy_tenure,add_policy_grace_period,add_customer_billing_date_input,
             add_policy_premium_ten,add_policy_pre_ten_end_date,add_policy_premium_amount,add_policy_last_prepaid_date,add_policy_nxt_pre_pay_date,
             add_policy_comission_amount,add_policy_benfy_info,add_policy_email,add_policy_phone,add_policy_insured_details;
     CheckBox sms_notification,email_notification;
     Button canel,save,save_new;
+    List agentNamesList=new ArrayList();
+    List customerNameList=new ArrayList();
     Calendar c;
     String premium_freq[]={"One Time","Monthly","Half Yearly","Quarterly","Yearly"};
     int yr,mon,day;
+    String S_id;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -47,6 +62,9 @@ public class AddPoliciesAct extends AppCompatActivity
 
     public void initParams()
     {
+        SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
+        S_id = mPrefs.getString("key", "");
+        select_agent_spinner=(Spinner)findViewById(R.id.select_agent_spinner);
         select_customer_spinner=(Spinner)findViewById(R.id.select_customer_spinner);
         select_company_type_spinner=(Spinner)findViewById(R.id.select_company_type_spinner);
         select_company_spinner=(Spinner)findViewById(R.id.select_company_spinner);
@@ -169,6 +187,62 @@ public class AddPoliciesAct extends AppCompatActivity
                 onBackPressed();
             }
         });
+
+        //adding the agents to the spinners
+        ApiService ser=ApiClient.getClient().create(ApiService.class);
+        Call<AgentsResponse> ares= ser.getAgents(S_id);
+        ares.enqueue(new Callback<AgentsResponse>()
+        {
+            @Override
+            public void onResponse(Call<AgentsResponse> call, Response<AgentsResponse> response)
+            {
+                agentNamesList.add("-- select agent --");
+                if (response.body().getStatuscode()==0)
+                {
+                    for (int i=0;i<response.body().getData().getAgentList().size();i++)
+                    {
+                        agentNamesList.add(response.body().getData().getAgentList().get(i).getFirst_name()+" "+response.body().getData().getAgentList().get(i).getLast_name());
+                    }
+                    ArrayAdapter aa=new ArrayAdapter(AddPoliciesAct.this,android.R.layout.simple_spinner_dropdown_item,agentNamesList);
+                    select_agent_spinner.setAdapter(aa);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AgentsResponse> call, Throwable t)
+            {
+
+            }
+        });
+
+        //inflating the customer details to the spinner
+        Call<CustomerResponse> cresp=ser.getCustomers(S_id);
+        cresp.enqueue(new Callback<CustomerResponse>() {
+            @Override
+            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response)
+            {
+                customerNameList.add("-- select customer --");
+                if (response.body().getStatuscode()==0)
+                {
+                    for (int k=0;k<response.body().getData().getCustomer_list().size();k++)
+                    {
+                        customerNameList.add(response.body().getData().getCustomer_list().get(k).getFirst_name()+" "+response.body().getData().getCustomer_list().get(k).getLast_name());
+                    }
+                    ArrayAdapter sp=new ArrayAdapter(AddPoliciesAct.this,android.R.layout.simple_spinner_dropdown_item,customerNameList);
+                    select_customer_spinner.setAdapter(sp);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CustomerResponse> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
     }
 
     public void dataOP()
