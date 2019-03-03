@@ -215,7 +215,8 @@ public class AddCompanyActivity extends AppCompatActivity
                     }
                 });
 
-            } catch (JSONException e) {
+            } catch (JSONException e)
+            {
                 data_loading_screen_layoutss.setVisibility(View.GONE);
                 e.printStackTrace();
             }
