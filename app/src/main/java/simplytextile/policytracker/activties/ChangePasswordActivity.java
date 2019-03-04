@@ -30,16 +30,6 @@ String LoginName,OldPassword,NewPassword;
         setContentView(R.layout.change_password_activity_);
 
         initview();
-
-
-
-
-
-
-
-
-
-
     }
 
     private void initview()
