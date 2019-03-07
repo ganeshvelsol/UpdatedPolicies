@@ -3,6 +3,7 @@ package simplytextile.policytracker.activties;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ public class AgentsListActivity extends AppCompatActivity
     ImageView imageView;
     LinearLayout data_loading_screen_layout;
     Button Agentsearch;
+    FloatingActionButton image_addbutton;
     EditText AgentQuerystring;
     String AgentidName;
     String S_id;
@@ -53,7 +55,7 @@ public class AgentsListActivity extends AppCompatActivity
         SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
          S_id = mPrefs.getString("key", "");
         agents_list_recycler=(RecyclerView)findViewById(R.id.agents_list_recycler);
-        imageView=(ImageView)findViewById(R.id.image_addbutton);
+        image_addbutton=(FloatingActionButton) findViewById(R.id.image_addbutton);
         Agentsearch=(Button)findViewById(R.id.agent_search_button);
         AgentQuerystring=(EditText)findViewById(R.id.agent_querystring);
 
@@ -61,7 +63,7 @@ public class AgentsListActivity extends AppCompatActivity
 
         llm=new LinearLayoutManager(this);
 
-        imageView.setOnClickListener(new View.OnClickListener()
+        image_addbutton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

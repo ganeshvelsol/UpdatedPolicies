@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity
 
     TextView signupText;
    public static String typeid;
-    public static String LastName,Email,Phone,City,PostalCode,AdhaarNaumber,Address,FirstName;
+    public static String LastName,Email,Phone,City,PostalCode,AdhaarNaumber,Address,FirstName,businessName;
 
 
     SharedPreferences mPrefs;
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
-                Intent mainactivity=new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                Intent mainactivity=new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(mainactivity);
 
             }
@@ -139,6 +139,7 @@ public class LoginActivity extends AppCompatActivity
                       SharedPreferences.Editor editor = mPrefs.edit();
                       editor.putString("key",Sid);
                       editor.commit();
+                      businessName=response.body().getData().getSession().getSubscriber().getBusiness_name();
                       LastName=response.body().getData().getSession().getSubscriber().getLast_name();
                        Email=response.body().getData().getSession().getSubscriber().getAddress().getEmail1();
                        Phone=response.body().getData().getSession().getSubscriber().getAddress().getPhone1();

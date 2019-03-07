@@ -12,6 +12,7 @@ import java.util.List;
         import retrofit2.http.Header;
         import retrofit2.http.Headers;
         import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import simplytextile.policytracker.NotificationResponse.Notresponse;
 import simplytextile.policytracker.companyresponse.AddCmpResponse;
@@ -37,8 +38,11 @@ public interface ApiService
     Call<LoginResponse> Logindetails(@Field("login_name") String login_name, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("/api/users/me/changepassword")
-    Call<Changespassword> userchangePassword(@Header("app_sid") String S_id ,@Field("login_name") String login_name, @Field("oldpassword") String oldpassword,@Field("newpassword") String newpassword);
+    @PUT("api/users/me/changepassword")
+    Call<Changespassword> userchangePassword(@Header("app_sid") String S_id ,
+                                             @Field("login_name") String login_name,
+                                             @Field("oldpassword") String oldpassword,
+                                             @Field("newpassword") String newpassword);
 
 
     @GET("api/companies")

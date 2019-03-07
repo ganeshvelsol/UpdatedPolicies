@@ -1,41 +1,33 @@
-<RelativeLayout
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:textSize="15dp"
-            android:textColor="@color/colorBlack"
-            android:text="Add Policies"/>
-
-        <ImageView
-            android:id="@+id/image_addbutton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/plus" />
-    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/policies_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        app:backgroundTint="@android:color/holo_red_light"
+        android:id="@+id/image_addbutton"
+        android:src="@drawable/add_new"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        app:elevation="8dp"
+        app:fabSize="normal"
+        android:layout_margin="15dp" />
+
     <include
         android:id="@+id/data_empty_layout"
         android:visibility="gone"

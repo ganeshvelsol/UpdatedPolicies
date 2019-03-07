@@ -93,8 +93,7 @@ String LoginName,OldPassword,NewPassword;
             {
                 if (response.body().getStatuscode()==0)
                 {
-                    Toast.makeText(ChangePasswordActivity.this, "from else"+response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(ChangePasswordActivity.this, ""+response.body().getStatuscode(), Toast.LENGTH_SHORT).show();
 
                 }
                 else
