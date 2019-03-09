@@ -142,7 +142,8 @@ public class AddCompanyActivity extends AppCompatActivity
 
             }
         });
-        add_company_name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        add_company_name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
@@ -150,7 +151,8 @@ public class AddCompanyActivity extends AppCompatActivity
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
 
             }
         });
