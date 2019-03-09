@@ -1,20 +1,27 @@
 package simplytextile.policytracker.changepasswordresponse;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Changespassword
 {
 
-    private int statuscode;
-
+    @SerializedName("statuscode")
+    @Expose
+    private Integer statuscode;
+    @SerializedName("message")
+    @Expose
     private String message;
-
+    @SerializedName("data")
+    @Expose
     private Data data;
 
-    public int getStatuscode()
-    {
+
+    public Integer getStatuscode() {
         return statuscode;
     }
 
-    public void setStatuscode(int statuscode) {
+    public void setStatuscode(Integer statuscode) {
         this.statuscode = statuscode;
     }
 
