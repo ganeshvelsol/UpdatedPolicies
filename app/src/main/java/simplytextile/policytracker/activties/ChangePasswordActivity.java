@@ -21,7 +21,6 @@ import simplytextile.policytracker.response.CustomerResponse;
 public class ChangePasswordActivity extends AppCompatActivity {
 EditText loginname,oldpassword,newpassword;
 Button submit;
-String S_id="8a672fbf361b11e9ab4daa3a52b410b4";
 String LoginName,OldPassword,NewPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,7 +82,7 @@ String LoginName,OldPassword,NewPassword;
     private void changepass()
     {
         SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
-       // String S_id = mPrefs.getString("key", "");
+        String S_id = mPrefs.getString("key", "");
         ApiService planView = ApiClient.getClient().create(ApiService.class);
         Call<Changespassword> changepassword=planView.userchangePassword(S_id,LoginName,OldPassword,NewPassword);
         changepassword.enqueue(new Callback<Changespassword>()
@@ -93,12 +92,12 @@ String LoginName,OldPassword,NewPassword;
             {
                 if (response.body().getStatuscode()==0)
                 {
-                    Toast.makeText(ChangePasswordActivity.this, ""+response.body().getStatuscode(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
                 else
                 {
-                    Toast.makeText(ChangePasswordActivity.this, "from else"+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

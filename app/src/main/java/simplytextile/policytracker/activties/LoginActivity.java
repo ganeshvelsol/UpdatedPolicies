@@ -27,7 +27,16 @@ public class LoginActivity extends AppCompatActivity
 
     TextView signupText;
    public static String typeid;
-    public static String LastName,Email,Phone,City,PostalCode,AdhaarNaumber,Address,FirstName,businessName;
+    public static String LastName;
+    public static String Email;
+    public static String Phone;
+    public static String City;
+    public static String PostalCode;
+    public static String AdhaarNaumber;
+    public static String Address;
+    public static String FirstName;
+    public static String businessName;
+    public static String SubscriberId;
 
 
     SharedPreferences mPrefs;
@@ -139,6 +148,7 @@ public class LoginActivity extends AppCompatActivity
                       SharedPreferences.Editor editor = mPrefs.edit();
                       editor.putString("key",Sid);
                       editor.commit();
+                      SubscriberId= String.valueOf(response.body().getData().getSession().getSubscriber().getId());
                       businessName=response.body().getData().getSession().getSubscriber().getBusiness_name();
                       LastName=response.body().getData().getSession().getSubscriber().getLast_name();
                        Email=response.body().getData().getSession().getSubscriber().getAddress().getEmail1();
@@ -147,7 +157,7 @@ public class LoginActivity extends AppCompatActivity
                        PostalCode=response.body().getData().getSession().getSubscriber().getAddress().getZip();
                        AdhaarNaumber=response.body().getData().getSession().getSubscriber().getAadhar_number();
                       FirstName =response.body().getData().getSession().getSubscriber().getFirst_name();
-                     Address= response.body().getData().getSession().getSubscriber().getAddress().getState();
+                      Address= response.body().getData().getSession().getSubscriber().getAddress().getState();
                        typeid= String.valueOf(response.body().getData().getSession().getSubscriber().getType_id());
                       Toast.makeText(LoginActivity.this, "" + typeid, Toast.LENGTH_LONG).show();
 
