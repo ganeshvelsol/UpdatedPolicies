@@ -75,9 +75,6 @@ public class AddCompanyActivity extends AppCompatActivity
                 {
 
                     a1[i]=response.body().getData().getCompany_list().get(i).getPolicy_type().getName();
-
-
-
                 }
                 ArrayAdapter aa=new ArrayAdapter(AddCompanyActivity.this,android.R.layout.simple_spinner_dropdown_item,a1);
                 add_company_bid_spinner.setAdapter(aa);

@@ -14,7 +14,8 @@ public class Changespassword
         return statuscode;
     }
 
-    public void setStatuscode(int statuscode) {
+    public void setStatuscode(int statuscode)
+    {
         this.statuscode = statuscode;
     }
 
@@ -30,7 +31,8 @@ public class Changespassword
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Data data)
+    {
         this.data = data;
     }
 }
