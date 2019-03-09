@@ -17,10 +17,19 @@
             app:cardCornerRadius="10dp"
             android:layout_margin="5dp"
             android:elevation="5dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/select_agent_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_height="50dp">
+                </Spinner>
+
                 <TextView
                     android:text="Customer :"
                     android:layout_width="match_parent"
@@ -31,6 +40,7 @@
                 <Spinner
                     android:id="@+id/select_customer_spinner"
                     android:layout_width="match_parent"
+                    android:layout_margin="10dp"
                     android:layout_height="50dp">
                 </Spinner>
             </LinearLayout>
