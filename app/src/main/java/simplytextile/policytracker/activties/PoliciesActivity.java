@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +35,7 @@ public class PoliciesActivity extends AppCompatActivity
     RecyclerView policies_recycler;
     LinearLayoutManager llm;
     LinearLayout data_empty_layout;
-    ImageView imageView;
+    FloatingActionButton image_addbutton;
     String S_id;
 
     @Override
@@ -46,8 +48,8 @@ public class PoliciesActivity extends AppCompatActivity
         policies_recycler = (RecyclerView) findViewById(R.id.policies_recycler);
         data_empty_layout = (LinearLayout) findViewById(R.id.data_empty_layout);
         llm = new LinearLayoutManager(this);
-        imageView=(ImageView)findViewById(R.id.image_addbutton);
-        imageView.setOnClickListener(new View.OnClickListener()
+        image_addbutton=(FloatingActionButton)findViewById(R.id.image_addbutton);
+        image_addbutton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

@@ -86,7 +86,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity
         dob_add_customer=(EditText)findViewById(R.id.dob_add_customer);
         address_userprofile_input=(EditText)findViewById(R.id.address_userprofile_input);
         update_register_signup=(Button) findViewById(R.id.update_register_signup);
-        changeuserpassword=(Button)findViewById(R.id.user_change_password);
+        //changeuserpassword=(Button)findViewById(R.id.user_change_password);
 
 
 

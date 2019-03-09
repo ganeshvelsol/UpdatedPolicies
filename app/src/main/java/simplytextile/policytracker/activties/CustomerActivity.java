@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +36,7 @@ public class CustomerActivity extends AppCompatActivity
 {
     public static final String ss="name";
     RecyclerView customer_recycler;
-    ImageView imageView;
+    FloatingActionButton image_addbutton;
     LinearLayoutManager llm;
     CustomerListAdapter adapter;
     Button Go;
@@ -51,12 +52,6 @@ public class CustomerActivity extends AppCompatActivity
         setContentView(R.layout.customer_activity);
         Querystring=(EditText)findViewById(R.id.querystring);
         Go=(Button)findViewById(R.id.go);
-
-
-
-
-
-
 
              llm=new LinearLayoutManager(this);
              SharedPreferences mPrefs = getSharedPreferences("IDvalue",0);
@@ -99,8 +94,8 @@ public class CustomerActivity extends AppCompatActivity
 
 
     customer_recycler=(RecyclerView)findViewById(R.id.customer_recycler);
-        imageView=(ImageView)findViewById(R.id.image_addbutton);
-        imageView.setOnClickListener(new View.OnClickListener()
+        image_addbutton=(FloatingActionButton) findViewById(R.id.image_addbutton);
+        image_addbutton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

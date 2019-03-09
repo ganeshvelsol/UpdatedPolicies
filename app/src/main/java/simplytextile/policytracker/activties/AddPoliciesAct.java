@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -48,7 +49,7 @@ public class AddPoliciesAct extends AppCompatActivity
     List customerNameList=new ArrayList();
     Calendar c;
     String premium_freq[]={"One Time","Monthly","Half Yearly","Quarterly","Yearly"};
-    int yr,mon,day;
+    int yr,mon,day,agentId,customerId;
     String S_id;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -194,7 +195,7 @@ public class AddPoliciesAct extends AppCompatActivity
         ares.enqueue(new Callback<AgentsResponse>()
         {
             @Override
-            public void onResponse(Call<AgentsResponse> call, Response<AgentsResponse> response)
+            public void onResponse(Call<AgentsResponse> call, final Response<AgentsResponse> response)
             {
                 agentNamesList.add("-- select agent --");
                 if (response.body().getStatuscode()==0)
@@ -206,6 +207,24 @@ public class AddPoliciesAct extends AppCompatActivity
                     ArrayAdapter aa=new ArrayAdapter(AddPoliciesAct.this,android.R.layout.simple_spinner_dropdown_item,agentNamesList);
                     select_agent_spinner.setAdapter(aa);
                 }
+                select_agent_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        if (position==0)
+                        {
+
+                        }else
+                        {
+                            agentId=response.body().getData().getAgentList().get(position).getId();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -219,7 +238,7 @@ public class AddPoliciesAct extends AppCompatActivity
         Call<CustomerResponse> cresp=ser.getCustomers(S_id);
         cresp.enqueue(new Callback<CustomerResponse>() {
             @Override
-            public void onResponse(Call<CustomerResponse> call, Response<CustomerResponse> response)
+            public void onResponse(Call<CustomerResponse> call, final Response<CustomerResponse> response)
             {
                 customerNameList.add("-- select customer --");
                 if (response.body().getStatuscode()==0)
@@ -231,6 +250,24 @@ public class AddPoliciesAct extends AppCompatActivity
                     ArrayAdapter sp=new ArrayAdapter(AddPoliciesAct.this,android.R.layout.simple_spinner_dropdown_item,customerNameList);
                     select_customer_spinner.setAdapter(sp);
                 }
+                select_customer_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        if (position==0)
+                        {
+
+                        }else
+                        {
+                            customerId=response.body().getData().getCustomer_list().get(position).getId();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -285,7 +322,7 @@ public class AddPoliciesAct extends AppCompatActivity
             sub_main.put("parent_id", "");
 
             JSONObject json_customer = new JSONObject();
-            json_customer.put("id", 10063);
+            json_customer.put("id", customerId);
             json_customer.put("business_name", "");
             json_customer.put("first_name", "");
             json_customer.put("last_name", "");
@@ -310,7 +347,7 @@ public class AddPoliciesAct extends AppCompatActivity
 
 
             JSONObject json_agent = new JSONObject();
-            json_agent.put("id", 10059);
+            json_agent.put("id", agentId);
             json_agent.put("business_name", "");
             json_agent.put("first_name", "");
             json_agent.put("last_name", "");
