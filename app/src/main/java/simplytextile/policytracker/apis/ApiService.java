@@ -61,8 +61,7 @@ public interface ApiService
 
     @Headers("Content-Type:application/json")
     @GET("api/customers")
-    Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,
-                                        @Query("search_text") String sigatunre);
+    Call<CustomerResponse> getCustomerfilter(@Header("app_sid") String S_id,@Query("agent_id") String client,@Query("search_text") String sigatunre);
 
 
     @Headers("Content-Type:application/json")

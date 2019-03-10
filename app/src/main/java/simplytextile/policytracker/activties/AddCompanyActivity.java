@@ -75,9 +75,6 @@ public class AddCompanyActivity extends AppCompatActivity
                 {
 
                     a1[i]=response.body().getData().getCompany_list().get(i).getPolicy_type().getName();
-
-
-
                 }
                 ArrayAdapter aa=new ArrayAdapter(AddCompanyActivity.this,android.R.layout.simple_spinner_dropdown_item,a1);
                 add_company_bid_spinner.setAdapter(aa);
@@ -142,7 +139,8 @@ public class AddCompanyActivity extends AppCompatActivity
 
             }
         });
-        add_company_name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        add_company_name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
@@ -150,7 +148,8 @@ public class AddCompanyActivity extends AppCompatActivity
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
 
             }
         });
@@ -215,7 +214,8 @@ public class AddCompanyActivity extends AppCompatActivity
                     }
                 });
 
-            } catch (JSONException e) {
+            } catch (JSONException e)
+            {
                 data_loading_screen_layoutss.setVisibility(View.GONE);
                 e.printStackTrace();
             }

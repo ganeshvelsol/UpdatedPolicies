@@ -103,7 +103,9 @@ public class AgentsListActivity extends AppCompatActivity
 
 
 
-        Agentsearch.setOnClickListener(new View.OnClickListener() {
+        Agentsearch.setOnClickListener(new View.OnClickListener()
+        {
+
             @Override
             public void onClick(View v)
             {

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -152,7 +153,7 @@ public class UpdateUserProfileActivity extends AppCompatActivity
         UPdatecity.setText(UserProfileActivity.city);
         UpdateAdharNumber.setText(UserProfileActivity.Adharnumber);
     }
-    public void updateCustomer()
+    public void profiles()
     {
 
         //String bnames=business_name_add_customer.getText().toString().trim();
@@ -206,102 +207,61 @@ public class UpdateUserProfileActivity extends AppCompatActivity
         }
         else {
 
-
+            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObjectSub=new JSONObject();
             try
             {
+                jsonObjectSub.put("id",0);
+                jsonObjectSub.put("type_id",6500);
+                jsonObjectSub.put("business_name","");
+                jsonObjectSub.put("first_name",fname);
+                jsonObjectSub.put("last_name",lname);
+                jsonObjectSub.put("aadhar_number","");
+                jsonObjectSub.put("govt_id_number","");
+                jsonObjectSub.put("irdai_number","");
+                JSONObject jsonObjectAdd=new JSONObject();
+                jsonObjectAdd.put("address1","");
+                jsonObjectAdd.put("address2","");
+                jsonObjectAdd.put("address3","");
+                jsonObjectAdd.put("city","");
+                jsonObjectAdd.put("state","");
+                jsonObjectAdd.put("zip","");
+                jsonObjectAdd.put("email1",email);
+                jsonObjectAdd.put("phone1",phone1);
+                jsonObjectAdd.put("email2","");
+                jsonObjectAdd.put("phone2","");
+                jsonObjectSub.put("address",jsonObjectAdd);
+                JSONObject jsonObjectUser=new JSONObject();
+                jsonObjectUser.put("login_name","agent.abc");
+                jsonObjectUser.put("password","rupesh");
+                jsonObjectSub.put("user",jsonObjectUser);
+                JSONArray comArray =new JSONArray();
+                jsonObjectSub.put("company_list",comArray);
+                jsonObject.put("subscriber",jsonObjectSub);
 
-                JSONObject jmain = new JSONObject();
-                JSONObject jsub1 = new JSONObject();
-                JSONObject jmore1 = new JSONObject();
-                JSONObject jmore2 = new JSONObject();
-                jsub1.put("id", 0);
-                jsub1.put("business_name", "");
-                jsub1.put("first_name", fname);
-                jsub1.put("last_name", lname);
-                jsub1.put("aadhar_number", aadar);
-                jsub1.put("govt_id_number", pan);
-                jsub1.put("date_of_birth", bob);
-                jsub1.put("status_id", bob);
-                jsub1.put("created","");
-                jsub1.put("last_updated","");
-                jsub1.put("update_counter","");
-
-                JSONObject jsub2 = new JSONObject();
-                jsub2.put("address1", add1);
-                jsub2.put("address2", "");
-                jsub2.put("address3", "");
-                jsub2.put("city", city);
-                jsub2.put("state", state);
-                jsub2.put("zip", postal);
-                jsub2.put("email1", email);
-                jsub2.put("phone1", phone1);
-                jsub2.put("email2", "");
-                jsub2.put("phone2", phone2);
-                jsub2.put("created","");
-                jsub2.put("last_updated","");
-                jsub2.put("update_counter","");
-
-                jsub1.put("address", jsub2);
-
-                JSONObject jsubAgent = new JSONObject();
-                jsubAgent.put("id", 10059);
-                jsubAgent.put("business_name", "");
-                jsubAgent.put("first_name", "");
-                jsubAgent.put("last_name", "");
-                jsubAgent.put("aadhar_number", "");
-                jsubAgent.put("govt_id_number", "");
-                jsubAgent.put("created","");
-                jsubAgent.put("last_updated","");
-                jsubAgent.put("notes","");
-
-
-                JSONObject jsub3 = new JSONObject();
-                jsub3.put("id", 0);
-                jsub3.put("first_name", fname);
-                jsub3.put("last_name", lname);
-                jsub3.put("address1", "");
-                jsub3.put("address2", "");
-                jsub3.put("address3", "");
-                jsub3.put("city", "");
-                jsub3.put("state", "");
-                jsub3.put("zip", "");
-                jsub3.put("email1", "");
-                jsub3.put("phone1", "");
-                jsub3.put("email2", "");
-                jsub3.put("phone2", "");
-                jsub3.put("created","");
-                jsub3.put("last_updated","");
-                jsub3.put("update_counter","");
-
-                jsubAgent.put("more", jmore1);
-                jsubAgent.put("address", jsub3);
-                jsub1.put("agent", jsubAgent);
-                jsub1.put("more", jmore2);
-                jmain.put("customer", jsub1);
-
-                Utills.getVolleyResponseJson(UpdateUserProfileActivity.this, Request.Method.PUT, "http://dev.simplytextile.com:9081/api/customers", jmain, new VolleyCallback() {
+                Utills.getVolleyResponseJson(UpdateUserProfileActivity.this, Request.Method.POST, "http://dev.simplytextile.com:9081/api/subscribers", jsonObject, new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String result)
                     {
-                        JSONObject jb = null;
                         try
                         {
-                            jb = new JSONObject(result);
-                            String msg = jb.getString("message");
-
-
-                            Toast.makeText(UpdateUserProfileActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e)
+                            JSONObject jb =new JSONObject(result);
+                            String   msg=jb.getString("message");
+                            Toast.makeText(UpdateUserProfileActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+                        }
+                        catch (JSONException e)
                         {
                             e.printStackTrace();
                         }
-
+                        Toast.makeText(UpdateUserProfileActivity.this, ""+result, Toast.LENGTH_SHORT).show();
+                        Intent mainactivity =new Intent(UpdateUserProfileActivity.this,LoginActivity.class);
+                        startActivity(mainactivity);
                     }
                 });
-            } catch (Exception e)
-            {
-
             }
-        }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }        }
     }
 }
