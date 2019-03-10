@@ -133,8 +133,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          tid=LoginActivity.typeid;
         if(tid.equals("6501"))
         {
-
-
             navigationView.getMenu().findItem(R.id.agent).setVisible(true);
 
         }

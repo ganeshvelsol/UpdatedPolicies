@@ -216,7 +216,7 @@ public class AddPoliciesAct extends AppCompatActivity
 
                         }else
                         {
-                            agentId=response.body().getData().getAgentList().get(position).getId();
+                            agentId=response.body().getData().getAgentList().get(position-1).getId();
                         }
                     }
 
@@ -236,7 +236,8 @@ public class AddPoliciesAct extends AppCompatActivity
 
         //inflating the customer details to the spinner
         Call<CustomerResponse> cresp=ser.getCustomers(S_id);
-        cresp.enqueue(new Callback<CustomerResponse>() {
+        cresp.enqueue(new Callback<CustomerResponse>()
+        {
             @Override
             public void onResponse(Call<CustomerResponse> call, final Response<CustomerResponse> response)
             {
@@ -259,7 +260,7 @@ public class AddPoliciesAct extends AppCompatActivity
 
                         }else
                         {
-                            customerId=response.body().getData().getCustomer_list().get(position).getId();
+                            customerId=response.body().getData().getCustomer_list().get(position-1).getId();
                         }
                     }
 

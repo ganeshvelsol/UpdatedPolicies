@@ -1,0 +1,103 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Spinner
+        android:id="@+id/spinner_customer_notif"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </Spinner>
+    <Spinner
+        android:id="@+id/spinner_agent_notif"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </Spinner>
+
+    <EditText
+        android:id="@+id/policy_number_notif"
+        android:layout_width="match_parent"
+        android:hint="policy number"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/spinner_sent_via_notif"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/spinner_type_notif"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </Spinner>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:weightSum="2">
+    <EditText
+        android:id="@+id/policy_start_notif"
+        android:layout_width="0dp"
+        android:hint="start date"
+        android:paddingLeft="10dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"/>
+    <ImageView
+        android:id="@+id/start_date_img"
+        android:src="@drawable/register_user_date"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="0.5"/>
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+        <EditText
+            android:id="@+id/policy_end_notif"
+            android:layout_width="0dp"
+            android:hint="End date"
+            android:paddingLeft="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"/>
+        <ImageView
+            android:id="@+id/end_date_img"
+            android:src="@drawable/register_user_date"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/ok_btn"
+            android:text="Ok"
+            android:textAllCaps="false"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

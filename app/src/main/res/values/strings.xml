@@ -14,6 +14,26 @@
     </string-array>
 
 
+
+    <string-array name="select_type_notif">
+        <item>Sent Via</item>
+        <item>Life</item>
+        <item>General</item>
+        <item>Health</item>
+    </string-array>
+
+
+    <string-array name="select_types">
+        <item>Select  Type*</item>
+        <item>All</item>
+        <item>Renewal</item>
+        <item>Premium Due</item>
+        <item>Birthday</item>
+        <item>Anniversary</item>
+        <item>Drivers License</item>
+    </string-array>
+
+
     <string-array name="select_state">
         <item>Select State*</item>
         <item>Andhra Pradesh</item>
