@@ -24,12 +24,15 @@
         <Spinner
             android:id="@+id/spinner_customer_notif"
             android:layout_width="match_parent"
-            android:background="@drawable/spinner_design_one"
+            android:layout_margin="10dp"
+            android:background="@drawable/spinner_second_style"
             android:layout_height="50dp">
         </Spinner>
         <Spinner
             android:id="@+id/spinner_agent_notif"
             android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/spinner_second_style"
             android:layout_height="50dp">
         </Spinner>
 
@@ -38,16 +41,22 @@
             android:layout_width="match_parent"
             android:hint="policy number"
             android:paddingLeft="10dp"
-            android:layout_height="wrap_content" />
+            android:layout_margin="5dp"
+            android:background="@drawable/edittext_shapes"
+            android:layout_height="50dp" />
         <Spinner
             android:id="@+id/spinner_sent_via_notif"
             android:layout_width="match_parent"
+            android:background="@drawable/spinner_second_style"
+            android:layout_margin="5dp"
             android:layout_height="50dp">
         </Spinner>
 
         <Spinner
             android:id="@+id/spinner_type_notif"
             android:layout_width="match_parent"
+            android:background="@drawable/spinner_second_style"
+            android:layout_margin="5dp"
             android:layout_height="50dp">
         </Spinner>
 
@@ -61,8 +70,11 @@
                 android:id="@+id/policy_start_notif"
                 android:layout_width="0dp"
                 android:hint="start date"
+                android:focusableInTouchMode="false"
+                android:background="@drawable/edittext_shapes"
                 android:paddingLeft="10dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1.5"/>
             <ImageView
                 android:id="@+id/start_date_img"
@@ -84,7 +96,10 @@
                 android:layout_width="0dp"
                 android:hint="End date"
                 android:paddingLeft="10dp"
-                android:layout_height="match_parent"
+                android:focusableInTouchMode="false"
+                android:layout_margin="5dp"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_shapes"
                 android:layout_weight="1.5"/>
             <ImageView
                 android:id="@+id/end_date_img"
@@ -109,10 +124,12 @@
                 android:textAllCaps="false"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/button_shape"
                 android:layout_height="match_parent" />
             <Button
                 android:id="@+id/ok_btn"
                 android:text="Ok"
+                android:background="@drawable/button_adapter_shape"
                 android:textAllCaps="false"
                 android:layout_width="0dp"
                 android:layout_weight="1"

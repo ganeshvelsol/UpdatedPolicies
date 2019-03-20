@@ -22,13 +22,15 @@
             android:id="@+id/add_company_bid_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="10dp">
+            android:background="@drawable/spinner_second_style"
+            android:layout_margin="10dp">
 
         </Spinner>
         <Spinner
             android:id="@+id/add_company_name"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/spinner_second_style"
             android:layout_height="50dp">
 
         </Spinner>
@@ -53,11 +55,11 @@
 
         <Button
             android:id="@+id/addcommpany_btn_save"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:background="@color/colorAppTheme"
+            android:background="@drawable/button_adapter_shape"
             android:textColor="@color/colorBlack"
             android:text="save"/>
     </LinearLayout>

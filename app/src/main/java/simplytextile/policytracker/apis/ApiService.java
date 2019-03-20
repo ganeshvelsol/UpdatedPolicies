@@ -95,8 +95,8 @@ public interface ApiService
     @GET("api/notifications")
     Call<Notresponse> getNotificationFilter(@Header("app_sid") String s_id,
                                             @Query("policy_number") String policy_number,
-                                            @Query("format") String format,
-                                            @Query("type") String type,
+                                            @Query("format") int format,
+                                            @Query("type") int type,
                                             @Query("date_from") String date_from,
                                             @Query("date_to") String date_to,
                                             @Query("customer_id") int customer_id,
@@ -106,8 +106,8 @@ public interface ApiService
     @GET("api/notifications")
     Call<Notresponse> getAgentNotificationFilter(@Header("app_sid") String s_id,
                                             @Query("policy_number") String policy_number,
-                                            @Query("format") String format,
-                                            @Query("type") String type,
+                                            @Query("format") int format,
+                                            @Query("type") int type,
                                             @Query("date_from") String date_from,
                                             @Query("date_to") String date_to,
                                             @Query("customer_id") int customer_id);

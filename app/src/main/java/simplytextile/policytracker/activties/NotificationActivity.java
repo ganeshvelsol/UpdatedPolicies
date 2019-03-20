@@ -87,6 +87,7 @@ public class NotificationActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 liner_notifi.setVisibility(View.GONE);
+                displayNotifications();
             }
         });
 
@@ -94,6 +95,7 @@ public class NotificationActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                liner_notifi.setVisibility(View.GONE);
                 if (LoginActivity.typeid.equals("6500"))
                 {
                     //pushing the agent notification filter
@@ -384,7 +386,8 @@ public void  displayNotifications()
             }
 
             @Override
-            public void onFailure(Call<CustomerResponse> call, Throwable t) {
+            public void onFailure(Call<CustomerResponse> call, Throwable t)
+            {
 
             }
         });
@@ -409,26 +412,29 @@ public void  displayNotifications()
         String policy_end_notifs=policy_end_notif.getText().toString().trim();
 
         ApiService ser=ApiClient.getClient().create(ApiService.class);
-        Call<Notresponse> notifiFilter=ser.getNotificationFilter(LoginActivity.Sid,pNUmber,sent,type,policy_start_notifs,policy_end_notifs,custId,agentId);
+        Call<Notresponse> notifiFilter=ser.getNotificationFilter(LoginActivity.Sid,pNUmber,0,0,policy_start_notifs,policy_end_notifs,custId,agentId);
         notifiFilter.enqueue(new Callback<Notresponse>()
         {
             @Override
             public void onResponse(Call<Notresponse> call, Response<Notresponse> response)
             {
+                recycler_linear.setVisibility(View.VISIBLE);
                 //here we have to display the data as per response
                 if (response.body().getStatuscode()==0)
                 {
-                    Toast.makeText(NotificationActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    NotificationAdapter adapter=new NotificationAdapter(response.body().getData().getNotification_list(),NotificationActivity.this);
+                    notification_recycler.setAdapter(adapter);
+                    notification_recycler.setLayoutManager(llm);
                 }
                 else
                 {
-                    Toast.makeText(NotificationActivity.this, "else case", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificationActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Notresponse> call, Throwable t) {
-                Toast.makeText(NotificationActivity.this, "failure"+t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationActivity.this, ""+t, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -441,17 +447,21 @@ public void  displayNotifications()
         String policy_end_notifs=policy_end_notif.getText().toString().trim();
 
         ApiService servs=ApiClient.getClient().create(ApiService.class);
-        Call<Notresponse> agenFilter=servs.getAgentNotificationFilter(LoginActivity.Sid,pNUmber,sent,type,policy_start_notifs,policy_end_notifs,custId);
-        agenFilter.enqueue(new Callback<Notresponse>() {
+        Call<Notresponse> agenFilter=servs.getAgentNotificationFilter(LoginActivity.Sid,pNUmber,0,0,policy_start_notifs,policy_end_notifs,custId);
+        agenFilter.enqueue(new Callback<Notresponse>()
+        {
             @Override
             public void onResponse(Call<Notresponse> call, Response<Notresponse> response)
             {
+                recycler_linear.setVisibility(View.VISIBLE);
                 if (response.body().getStatuscode()==0)
                 {
-                    Toast.makeText(NotificationActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    NotificationAdapter adapter=new NotificationAdapter(response.body().getData().getNotification_list(),NotificationActivity.this);
+                    notification_recycler.setAdapter(adapter);
+                    notification_recycler.setLayoutManager(llm);
                 }else
                 {
-                    Toast.makeText(NotificationActivity.this, "failure", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificationActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 

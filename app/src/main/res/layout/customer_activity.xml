@@ -24,19 +24,18 @@
             android:id="@+id/querystring"
             android:layout_width="0dp"
             android:hint="enter name"
-            android:paddingLeft="7dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/edittext_shape"
-            android:layout_height="match_parent"
+            style="@style/edit_text_background"
+            android:layout_height="50dp"
             android:layout_weight="1.5"
             />
         <Button
             android:id="@+id/go"
             android:text="Search"
             android:textAllCaps="false"
+            android:layout_gravity="center"
             android:background="@drawable/button_adapter_shape"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="0.5"/>
     </LinearLayout>
 
